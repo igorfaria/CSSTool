@@ -10,9 +10,12 @@
         }
     ],
     "require": {
-        "php": "^5.3.2 || ^7.0",
+        "php": "^5.3.2 || ^7.0"
     },
     "config": {
         "vendor-dir": "src"
+    },
+    "autoload": {
+        "psr-4": {"CSSTool\\": "src/"}
     }
 }
