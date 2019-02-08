@@ -1,0 +1,26 @@
+{
+    "name": "csstool/tests",
+    "description": "CSSTools Tests :D",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Igor T. Faria",
+            "email": "itfaria@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "packagist.org": false
+        },
+        {
+            "type": "path",
+            "url": "../src",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "require": {
+        "csstool/css": "dev-master"
+    }
+}

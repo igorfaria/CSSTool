@@ -4,7 +4,7 @@
 $class_before_autoload = get_declared_classes();
 
 // Includes the autoload :D
-require  '../vendor/autoload.php';
+require  'vendor/autoload.php';
 
 // Classes after autoload
 $class_after_autoload = get_declared_classes();

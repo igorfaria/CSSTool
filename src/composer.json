@@ -1,0 +1,17 @@
+{
+    "name": "csstool/css",
+    "description": "CSSTools :D",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor T. Faria",
+            "email": "itfaria@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CSSTool\\": ""
+        }
+    }
+}
