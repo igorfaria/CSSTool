@@ -3,19 +3,14 @@
 /*
  * Testing the autoload in development
 */
+header('Content-type: text/plain;charset=utf8');
 
 // Include the autoload :D
 require  'vendor/autoload.php';
 
 // Create an instance 
 $CSS = new CSSTool\CSS;
-
-$CSS->set('strong{font-weight: 600;}');
-
-$CSS->append('p{color: red;}');
-
-$CSS->prepend('html,body {margin:0; padding:0px;}');
-
+// Load local file
+$CSS->load('css/simple.css');
 // Output
-echo '<pre>';
 var_dump($CSS->get());

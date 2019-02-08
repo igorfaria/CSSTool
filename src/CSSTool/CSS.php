@@ -4,48 +4,53 @@ namespace CSSTool;
 
 class CSS
 {
-    private $parsed_css = [];
+    private $parsedCSS = [];
 
     public function get(){
         // Just return the array of parsed CSS
-        return $this->parsed_css;
+        return $this->parsedCSS;
     }
-    public function set($css_input){
+    public function set($cssInput){
         // Set a new array
-        $this->parsed_css = [];
-        // Append the $css_input
-        return $this->add($css_input);
+        $this->parsedCSS = [];
+        // Append the $cssInput
+        return $this->add($cssInput);
     }
 
-    public function parse($string_css){
+    public function load($cssFilepath){
+        $Filer = new Tools\Filer($cssFilepath);
+        $this->set($Filer->get());
+    }
+
+    public function parse($cssStringInput){
         // Create an instance of CSSTool\Tools\Parser
         $Parser = new Tools\Parser();
         // Return an set of associative array of parsed CSS
-        return $Parser->parse($string_css);
+        return $Parser->parse($cssStringInput);
     }
 
-    public function append($css_input){
+    public function append($cssInput){
         // Call add method
-        return $this->add($css_input);
+        return $this->add($cssInput);
     }
 
-    public function prepend($css_input){
+    public function prepend($cssInput){
         // Call add method and pass "false" in the $append argument
-        return $this->add($css_input, false);
+        return $this->add($cssInput, false);
     }
 
-    private function add($css_input,$append=true){
+    private function add($cssInput,$append=true){
         // If it isn't a string or an array, return false
-        if(!is_string($css_input) AND !is_array($css_input)) return false;
+        if(!is_string($cssInput) AND !is_array($cssInput)) return false;
         // If it is an string, parse it
-        if(is_string($css_input)) $css_input = $this->parse($css_input);
+        if(is_string($cssInput)) $cssInput = $this->parse($cssInput);
         if($append){
             // It's to append
-            $this->parsed_css = array_merge($this->parsed_css, $css_input);
+            $this->parsedCSS = array_merge($this->parsedCSS, $cssInput);
         }
         else {
             // It's to prepend
-            $this->parsed_css = array_merge($css_input,$this->parsed_css);
+            $this->parsedCSS = array_merge($cssInput,$this->parsedCSS);
         }
         // Return true
         return true;
