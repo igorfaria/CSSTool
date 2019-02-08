@@ -14,7 +14,7 @@
         },
         {
             "type": "path",
-            "url": "../src",
+            "url": "../src/CSSTool",
             "options": {
                 "symlink": true
             }
