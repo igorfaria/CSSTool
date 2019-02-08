@@ -14,7 +14,7 @@ $CSS->set('strong{font-weight: 600;}');
 
 $CSS->append('p{color: red;}');
 
-$CSS->prepend('html,body {margin:0; padding:0;}');
+$CSS->prepend('html,body {margin:0; padding:0px;}');
 
 // Output
 echo '<pre>';
