@@ -47,18 +47,21 @@
         min-height: 100vh;
         border: 0;
     }
+
+    @media all and (max-width: 658px) and (min-width: 0){
+        #tests_list,#tests_viwer {
+            position: static;
+            width: 100%;
+        }
+    }
   </style>
 </head>
 <body>
 <div id='tests_list'>
 <h1>Tests</h1>
-<?php
-    echo '<ol>';
-    foreach($files as $file){
-        echo "<li><a href='{$file}' target='tests_viewer'>{$file}</a></li>";
-    }
-    echo '</ol>';
-?>
+<ol>
+    <?php foreach($files as $file) echo "<li><a href='{$file}' target='tests_viewer'>{$file}</a></li>"; ?>
+</ol>
 </div>
 <iframe id='tests_viewer' src='' name='tests_viewer'></iframe>
 
