@@ -9,13 +9,9 @@
             "email": "itfaria@gmail.com"
         }
     ],
-    "require": {
-        "php": "^5.3.2 || ^7.0"
-    },
-    "config": {
-        "vendor-dir": "src"
-    },
+    "require": {},
+    "config": {},
     "autoload": {
-        "psr-4": {"CSSTool\\": "src/"}
+        "psr-4": {"CSSTool\\": "src/CSSTool"}
     }
 }
