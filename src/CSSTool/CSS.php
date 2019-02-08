@@ -11,11 +11,10 @@ class CSS
     }
     public function set($css_input){
         $this->parsed_css = [];
-        $this->add($css_input);
+        return $this->add($css_input);
     }
 
     public function parse($string_css){
-        if(is_null($string_css)) return [];
         $Parser = new Tools\Parser();
         return $Parser->parse($string_css);
     }
@@ -28,21 +27,17 @@ class CSS
         return $this->add($css_input, false);
     }
 
-    private function add($css_string_or_array,$append=true){
-        if(!is_string($css_string_or_array) AND !is_array($css_string_or_array)) return false;
-
-        $css_input = $css_string_or_array;
-
-        if(is_string($css_string_or_array)){
-            $css_input = $this->parse($css_string_or_array);
-        }
+    private function add($css_input,$append=true){
+        if(!is_string($css_input) AND !is_array($css_input)) return false;
+        if(is_string($css_input)) $css_input = $this->parse($css_input);
 
         if($append){
             $this->parsed_css = array_merge($this->parsed_css, $css_input);
-        } else{
+        }
+        else {
             $this->parsed_css = array_merge($css_input,$this->parsed_css);
         }
-
+        
         return true;
     }
     
