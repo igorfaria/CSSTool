@@ -2,6 +2,8 @@
     "name": "csstool/css",
     "description": "CSSTools :D",
     "type": "library",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "license": "MIT",
     "authors": [
         {
@@ -9,9 +11,18 @@
             "email": "itfaria@gmail.com"
         }
     ],
-    "require": {},
-    "config": {},
     "autoload": {
-        "psr-4": {"CSSTool\\": "src/CSSTool"}
-    }
+        "psr-4": {
+            "CSSTool\\": "src/CSSTool"
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "src/CSSTool",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }
