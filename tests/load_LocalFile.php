@@ -1,7 +1,6 @@
 <?php
-
 /*
- * Testing the autoload in development
+ * Testing to load a simple CSS from a local file
 */
 header('Content-type: text/plain;charset=utf8');
 
@@ -10,7 +9,7 @@ require  'vendor/autoload.php';
 
 // Create an instance 
 $CSS = new CSSTool\CSS;
-// Load local file
+echo 'Load local file "./css/simple.css"' . PHP_EOL . PHP_EOL;
 $CSS->load('css/simple.css');
 // Output
 var_dump($CSS->get());

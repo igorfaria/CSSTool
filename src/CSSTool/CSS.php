@@ -6,10 +6,22 @@ class CSS
 {
     private $parsedCSS = [];
 
-    public function get(){
-        // Just return the array of parsed CSS
-        return $this->parsedCSS;
+    public function get($format='array'){
+        switch($format){
+            case 'string':
+                return Tools\Parser::toString($this->parsedCSS);
+                break;
+            case 'json':
+                return json_encode($this->parsedCSS, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+                break;
+            case 'array':      
+            default:          
+                // Just return the array of parsed CSS
+                return $this->parsedCSS;
+                break;
+        }
     }
+
     public function set($cssInput){
         // Set a new array
         $this->parsedCSS = [];
@@ -23,10 +35,8 @@ class CSS
     }
 
     public function parse($cssStringInput){
-        // Create an instance of CSSTool\Tools\Parser
-        $Parser = new Tools\Parser();
         // Return an set of associative array of parsed CSS
-        return $Parser->parse($cssStringInput);
+        return Tools\Parser::parse($cssStringInput);
     }
 
     public function append($cssInput){
@@ -43,7 +53,20 @@ class CSS
         // If it isn't a string or an array, return false
         if(!is_string($cssInput) AND !is_array($cssInput)) return false;
         // If it is an string, parse it
-        if(is_string($cssInput)) $cssInput = $this->parse($cssInput);
+        if(is_string($cssInput)) {
+            $cssInput = $this->parse($cssInput);
+        } else {
+            // If it is an array
+            if(count($cssInput) > 0 AND is_array($cssInput)){
+                // Check to see if it's an set
+                if(!isset($cssInput[0])){
+                    return $this->add([$cssInput],$append);
+                }
+            } else {
+                // If it's not an array or is empty at this point, we have nothing to merge 
+                return false;
+            }
+        }
         if($append){
             // It's to append
             $this->parsedCSS = array_merge($this->parsedCSS, $cssInput);
