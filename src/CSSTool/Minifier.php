@@ -1,6 +1,6 @@
 <?php
 
-namespace CSSTool\Tools;
+namespace CSSTool;
 
 class Minifier
 {

@@ -9,7 +9,7 @@ class CSS
     public function get($format='array'){
         switch($format){
             case 'string':
-                return Tools\Parser::toString($this->parsedCSS);
+                return Parser::toString($this->parsedCSS);
                 break;
             case 'json':
                 return json_encode($this->parsedCSS, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
@@ -30,13 +30,13 @@ class CSS
     }
 
     public function load($cssFilepath){
-        $Filer = new Tools\Filer($cssFilepath);
+        $Filer = new Filer($cssFilepath);
         $this->set($Filer->get());
     }
 
     public function parse($cssStringInput){
         // Return an set of associative array of parsed CSS
-        return Tools\Parser::parse($cssStringInput);
+        return Parser::parse($cssStringInput);
     }
 
     public function append($cssInput){
