@@ -121,7 +121,10 @@ class CSS
                 return $stringCSS;
                 break;
             case 'json':
-                return json_encode($this->parsedCSS, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+                $FLAGS_JSON = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+                $FLAGS_JSON .= (!$minified)?(JSON_PRETTY_PRINT):''; 
+                $stringJSON = json_encode($this->parsedCSS, $FLAGS_JSON);
+                return $stringJSON;
                 break;
             case 'array':      
             default:          

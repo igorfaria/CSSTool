@@ -20,6 +20,15 @@ class Minifier
         return $stringCSS;
     }
 
+    static function json($stringJSON){
+        $selfInstance = new self();
+        // Remove block comments /* ... */
+        $stringJSON = $selfInstance->remove_block_comments($stringJSON);
+        // Replace double spaces
+        $stringJSON = $selfInstance->replace_double_spaces($stringJSON);
+        return $stringJSON;
+    }
+
     private function remove_block_comments($stringInput){
         return preg_replace('@\\s*/\\*.*\\*/\\s*@sU','', $stringInput);
     }
