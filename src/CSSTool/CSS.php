@@ -6,22 +6,6 @@ class CSS
 {
     private $parsedCSS = [];
 
-    public function get($format='array'){
-        switch($format){
-            case 'string':
-                return Parser::toString($this->parsedCSS);
-                break;
-            case 'json':
-                return json_encode($this->parsedCSS, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-                break;
-            case 'array':      
-            default:          
-                // Just return the array of parsed CSS
-                return $this->parsedCSS;
-                break;
-        }
-    }
-
     public function set($cssInput){
         // Set a new array
         $this->parsedCSS = [];
@@ -77,6 +61,22 @@ class CSS
         }
         // Return true
         return true;
+    }
+
+    public function get($format='array'){
+        switch($format){
+            case 'string':
+                return Parser::toString($this->parsedCSS);
+                break;
+            case 'json':
+                return json_encode($this->parsedCSS, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+                break;
+            case 'array':      
+            default:          
+                // Just return the array of parsed CSS
+                return $this->parsedCSS;
+                break;
+        }
     }
     
 }
