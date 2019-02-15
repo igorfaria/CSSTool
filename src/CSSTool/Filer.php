@@ -9,8 +9,8 @@ class Filer
     private $filePath = 'temp/';
     private $fileContent;
 
-    public function __construct($stringPath){
-        return $this->load($stringPath);
+    public function __construct($stringPath=null){
+        if(!is_null($stringPath)) return $this->load($stringPath);
     }
 
     public function load($stringPath){
@@ -41,15 +41,20 @@ class Filer
         return true;
     }
 
-    public function save($name,$path,$createIfNotExist=true){
-        try {            
-            $this->setName($name);
-            $this->setPath($path);
+    public function save($name,$path='',$createIfNotExist=true){
+        try {          
+
+            $pathParts = pathinfo($path.$name);
+
+            $this->filePath = $pathParts['dirname'];
+            $this->fileExtention = $pathParts['extension'];
+            $this->fileName = $pathParts['filename'];
 
             if($createIfNotExist){
                 $this->createPathIfNotExist();
             }   
-            $finalFilePath = $this->filePath.$this->fileName.$this->fileExtention;
+
+            $finalFilePath = $this->filePath.'/'.$this->fileName.'.'.$this->fileExtention;
             return \file_put_contents($finalFilePath, $this->fileContent);
         } catch(\Exception $e){
             echo 'Caught exception: ',  $e->getMessage(), "\n";
@@ -59,11 +64,12 @@ class Filer
 
     public function setName($name){
         $name = explode('.', $name);
-        $this->fileName = $name;
+        $this->fileName = $name[0];
         $this->fileExtention = (isset($name[1])?$name[1]:'filerTemp');
     }
 
     public function setPath($path){
+        if(empty($path)) return false;
         $this->filePath=$path;
     }
 
@@ -72,7 +78,19 @@ class Filer
     }
 
     private function createPathIfNotExist(){
-        echo 'Create path if not exist';
+        return $this->make_path($this->filePath.'/'.$this->fileName, true);
+    }
+
+    function make_path($pathname, $is_filename=false){
+        if($is_filename){
+            $pathname = substr($pathname, 0, strrpos($pathname, '/'));
+        }
+        // Check if directory already exists
+        if (is_dir($pathname) || empty($pathname)) {
+            return true;
+        } 
+        // Create the path recursively if it doesn't exists
+        return mkdir($pathname,0777,TRUE);
     }
 
 

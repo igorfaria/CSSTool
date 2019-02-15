@@ -65,6 +65,12 @@ class CSS
         $this->set($Filer->get());
     }
 
+    public function save($cssFilepath){
+        $Filer = new Filer();
+        $Filer->set($this->get('string'));
+        return $Filer->save($cssFilepath);
+    }
+
     public function parse($cssStringInput){
         // Return an set of associative array of parsed CSS
         return Parser::parse($cssStringInput);
@@ -122,9 +128,10 @@ class CSS
                 break;
             case 'json':
                 $FLAGS_JSON = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+                // If it isn't to minify, well return the pretty print version :D
                 $FLAGS_JSON .= (!$minified)?(JSON_PRETTY_PRINT):''; 
-                $stringJSON = json_encode($this->parsedCSS, $FLAGS_JSON);
-                return $stringJSON;
+                // Return a json with CSS rules and properties 
+                return json_encode($this->parsedCSS, $FLAGS_JSON);
                 break;
             case 'array':      
             default:          
