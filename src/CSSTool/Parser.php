@@ -11,7 +11,7 @@ class Parser
         return $this;
     }
 
-    static function parse($cssInputString){
+    static function parse($cssInputString,$fromMedia=false){
         // If it isn't an string...
         if(!is_string($cssInputString)) return false;
         // Remove comments before parsing
@@ -31,7 +31,7 @@ class Parser
         # Initial Source: https://stackoverflow.com/questions/33547792/php-css-from-string-to-array
         $reCSS = "/([^{]+)\s*\{\s*([^}]+)\s*}/";
         preg_match_all($reCSS, $cssTextAux, $matches);
-        
+       
         //Create an array to hold the returned values
         $return = array();
         for($i = 0; $i<count($matches[0]); $i++){
@@ -63,14 +63,19 @@ class Parser
                     $name = trim($mediaName);
                     // CSS string related to the media
                     $mediaCSS = $matchesMedia[2][$mediaRule[1]];
+                  
                     // Parse the CSS string
-                    $rules_a[] = $SelfInstanceParser->parse($mediaCSS); 
+                    $rules_a[] = $SelfInstanceParser->parse($mediaCSS,true); 
+                    unset($rules_a['media']);
                 } 
             }
             
-            
-            //Add the name and its values to the array
-            $return[][$name] = $rules_a;
+            if($fromMedia){
+                $return[$name] = $rules_a;
+            } else {
+                //Add the name and its values to the array
+                $return[][$name] = $rules_a;
+            }
         }
 
         //Return the array with rules
@@ -86,7 +91,7 @@ class Parser
         return preg_replace_callback($pattern, array($this, '_callbackMedias'), $text);
     }
     public function _callbackMedias($matches) {
-        return '@media-' . $this->_countMedias++ . '{media:'.$this->_countMedias.'}';
+         return '@media-' . $this->_countMedias++ . '{media:'.$this->_countMedias.';}';
     }
 
     static function toString($cssInputArray,$minify=true){
@@ -150,12 +155,12 @@ class Parser
                   }
 				  
               }
-              $css_text .= '}' . $break_line;
+              $css_text .= '}' . $break_line . $break_line;
             }
 			
 			// Keyframes...
 			if(strpos($selector1, '@-web') !== FALSE){  
-				$css_text .= $ident_space . '}' . $break_line;
+				$css_text .= $ident_space . '}' . $break_line . $break_line;
 			 }
         }
         

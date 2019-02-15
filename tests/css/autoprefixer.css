@@ -1,0 +1,61 @@
+.example.animation {
+    animation: MyAnimation 2s; /* IE >9, Fx >15, Op >12.0 */
+}
+
+.example.bg-clip {
+    background-clip: text;
+    background-origin: padding-box;
+    background-size: cover;
+  }
+
+/* No official feature. Avoid... */
+.example.box-ref {
+    box-reflect: below 5px url(mask.png); /* Ch, Saf (+iOs +BB) */
+}
+
+.example.filter {
+    filter: grayscale(50%); /* FF 35+ */
+}
+
+.main-nav,
+.main-sidebar {
+  width: 20%;            /* For old syntax, otherwise collapses. */
+  flex: 1;               /* NEW, Spec - Firefox, Chrome, Opera */
+}
+
+.example.font-feature {
+    font-feature-settings: "liga", "dlig";     /* IE 10, Saf 4.0-6.0 */
+}
+
+.example.wordbreak {
+    word-break: break-all;
+    hyphens: auto; /* None yet */
+}
+
+/* WebKit only thing at the moment. Avoid or look into Filters or SVG */
+.example.mask-image {
+    mask-image: url(mask.png); /* Ch 4.0-16, Saf 4.0-6.0, And 2.1-4.2, BB 7.0-10.0 */
+}
+
+.example.columns {
+    column-count: 2; /* IE 10, Op 11.1+ */
+    column-gap: 10px;
+    column-rule: 1px solid #000;
+}
+
+.example.object-fill {
+    object-fit: fill;
+}
+
+.example.flow {
+    flow-from: flow_name; 
+    flow-into: flow_name;
+}
+
+.example.transform {
+    transform: rotate(30deg); /* IE 10, Fx 16+, Op 12.1+ */
+}
+
+.example.appearence {
+    appearance: none;
+}

@@ -16,29 +16,6 @@ class CSS
         $this->config = array(
             // Optimize output
             'optimize' => true,
-            // Auto Prefixes - add prefixes automatically if not yet defined to specified properties that you define
-            'autoprefixer' => true,
-            # just add prefixes to properties :x
-            # http://shouldiprefix.com
-            'prefixes' => array(
-                '-webkit-' => array(
-                    'animation', 'background-clip', 'box-reflect', 'filter', 'flex', 'box-flex',
-                    'font-feature-settings','hyphens','mask-image','column-count', 'column-gap', 
-                    'column-rule','flow-from','flow-into','transform','appearance',
-					'animation-duration', 'animation-duration', 'animation-name'
-                ), 
-                '-moz-' => array(
-					'animation-duration', 'animation-duration', 'animation-name', 'transform',
-                    'font-feature-settings', 'hyphens','column-count','column-gap','column-rule','appearance'
-                ), 
-                '-ms-' => array(
-                    'word-break', 'hyphens','flow-from','flow-into','transform'
-                ),
-                '-o-' => array(
-                    'object-fit'
-                ),
-            ),
-             
         );
         // If $config is an array, overwrites the default value
         if(is_array($config)){
@@ -116,10 +93,16 @@ class CSS
         return true;
     }
 
-    public function get($format='array',$minified=true){
+    public function get($format='array',$minified=true,$prefixes=false){
+        $parsedCSS = $this->parsedCSS;
+        
+        if($prefixes){
+            $parsedCSS = Optimizer::from_parsed($parsedCSS);
+        }
+
         switch($format){
             case 'string':
-                $stringCSS = Parser::toString($this->parsedCSS);
+                $stringCSS = Parser::toString($parsedCSS);
                 // If its to minify, we minify
                 if($minified){
                     $stringCSS = Minifier::css($stringCSS);
@@ -131,14 +114,18 @@ class CSS
                 // If it isn't to minify, well return the pretty print version :D
                 $FLAGS_JSON .= (!$minified)?(JSON_PRETTY_PRINT):''; 
                 // Return a json with CSS rules and properties 
-                return json_encode($this->parsedCSS, $FLAGS_JSON);
+                return json_encode($parsedCSS, $FLAGS_JSON);
                 break;
             case 'array':      
             default:          
                 // Just return the array of parsed CSS
-                return $this->parsedCSS;
+                return $parsedCSS;
                 break;
         }
+    }
+
+    public function add_prefixes($format){
+        return $this->get($format,false,true);
     }
     
 }

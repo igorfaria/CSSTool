@@ -1,0 +1,22 @@
+
+@supports ( display: flexbox ) {
+    body { display: flexbox; }
+}
+
+@keyframes MyAnimation {
+    0% { left: 0; }	
+   50% { left: 200px; }	
+  100% { left: 20px; }	
+}
+
+@media all and (max-width: 768px) {
+    body {color: red;}
+}
+
+@media print {
+    body {background: white}
+}
+
+@media all and (max-width: 1023px) and (min-width: 767px){
+    body {font-size:1.1em;}
+}
