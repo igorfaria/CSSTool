@@ -163,8 +163,7 @@ nav ul li.active a {
 }
 
 #banner .button:hover {
-  background: #7b0a9c;
-  color: #720891;
+  background: #1cad23;
   box-shadow: 0 1px 5px rgba(0,0,0,.1);
 }
 
@@ -173,9 +172,14 @@ nav ul li.active a {
   #banner .downloads span { display: none; }
   #banner .downloads {margin-right: 10px;}
   #banner ul li a.button {font-size:12px;padding: 10px 16px;margin-left: 10px;margin-top:9px;}
-  #banner .fork {left: 110px;font-size:11px;}
+  #banner .fork {left: 180px;font-size:11px;}
   nav ul li:nth-of-type(2),
   nav ul li:nth-of-type(5),nav ul li:nth-of-type(6),
   nav ul li:nth-of-type(7),nav ul li:nth-of-type(9) { display: none ;}
+  #banner #logo {
+    left: 5px;
+    height: 62px;
+    width: 170px;
+  }
 }
  
