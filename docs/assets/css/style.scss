@@ -3,12 +3,24 @@
 
 @import "{{ site.theme }}";
 
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,900|Nunito:400,700');
+
 :root {
   --primary_color_lol: #720891;
 }
 
 body {
   background: #078266;
+  font: 18px/22px Nunito, 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: Merriweather;
+  font-weight: 900;
+}
+
+strong,b {
+  font-weight: 700;
 }
 
 footer {
