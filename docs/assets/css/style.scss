@@ -3,8 +3,12 @@
 
 @import "{{ site.theme }}";
 
+::root {
+  --primary_color_lol: #720891;
+}
+
 body {
-  background: #ccc;
+  background: #252525;
 }
 
 footer {
@@ -51,8 +55,8 @@ pre {
   background-size: contain;
   right: auto;
   left: 20px;
-  width: 100px;
-  height: 50px;
+  width: 240px;
+  height: 90px;
   top: 0px;
 }
 
@@ -60,8 +64,8 @@ header {
   display: none;
 }
 #banner {
-  background: #333;
-  border-color: #333;
+  background: var(--primary_color_lol);
+  border-color: var(--primary_color_lol);
   width: 100%;
   left: 0;
   right: 0;
@@ -74,11 +78,12 @@ header {
 }
 section {
   width: calc(100% - 40px); 
-  margin: 0 auto;
+  margin: 40px auto;
   margin-top: 106px;
   background: #FFF;
   box-sizing: border-box;
   border: 0;
+  border-radius: 0;
 }
 
 nav {
@@ -88,9 +93,9 @@ nav {
   width: 100%;
   right: 0;
   z-index: 10;
-  background: #f1f1f1;
+  background: #5ea574;
   top: 52px;
-  box-shadow: 0px 0px 2px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 2px rgba(0,0,0,0.15);
 }
 nav ul {
    margin: 0; 
@@ -103,14 +108,13 @@ nav ul li a {
     display: inline-block;
     padding: 5px 10px;
     margin: 0 5px;
-    color: #6b6a6a;
+    color: #e2e2e2;
     font-size: 16px;
     font-weight: 500;
 }
 nav ul li a:hover,
 nav ul li.active a {
-  background: rgba(255, 255, 255, 1);
-  color: #1b1b1b1;
+  color: #fff;
 }
 #banner .button {
   border: 0;
@@ -118,17 +122,18 @@ nav ul li.active a {
   box-shadow: none;
 }
 #banner .fork {
-  background: #232323;
+  background: #650582;
   left: 145px;
   margin-top: 9px;
   margin-left: 0;
-  
+  box-shadow: inset 0 1px 5px rgba(0,0,0,.3);
+  transition: .3s;
 }
 
 
 
 #banner .fork strong {
-  color: #fff;
+  color: #e2e2e2;
 }
 #banner .downloads span {
     font-size: 120%;
@@ -142,11 +147,9 @@ nav ul li.active a {
   color: #FFF;
 }
 #banner .button:hover {
-  background: #cccccc;
-  color: #333;
-}
-#banner .button:hover strong {
-  color: #333;
+  background: #7b0a9c;
+  color: #720891;
+  box-shadow: 0 1px 5px rgba(0,0,0,.1);
 }
 
 @media all and (max-width: 768px) and (min-width: 0){
