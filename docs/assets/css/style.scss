@@ -10,7 +10,7 @@
 }
 
 body {
-  background: #078266;
+  background: var(--primary_color_lol);
   font: 18px/22px Nunito, 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -29,6 +29,7 @@ footer {
  text-align: center;
  width: 100%;
  color: #f8f8f8;
+ background: #078266;
 }
 
 footer a {
