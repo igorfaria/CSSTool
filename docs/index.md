@@ -38,7 +38,7 @@ You can run them through a web browser or using the command line.
 
 <script>
   var header_tag = document.getElementsByTagName('head')[0];
-  
+
   /* Create the link tag dynamically to manifest lol */
   var link_manifest = document.createElement('link');
       link_manifest.href = "manifest.json";
@@ -50,7 +50,7 @@ You can run them through a web browser or using the command line.
       link_favicon.href = "assets/img/logo-192px.png";
       link_favicon.rel = 'shortcut icon';
       link_favicon.type = 'image/png';
-      header_tag.appendChild(link_manifest);
+      header_tag.appendChild(link_favicon);
   
   /* Try to register the empty service-worker, to "add to home banner" in Chrome */
   if ('serviceWorker' in navigator) {
