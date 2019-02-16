@@ -8,7 +8,7 @@
 }
 
 body {
-  background: #252525;
+  background: #078266;
 }
 
 footer {
@@ -16,6 +16,7 @@ footer {
  margin: 0;
  text-align: center;
  width: 100%;
+ color: #f8f8f8;
 }
 
 footer a {
@@ -82,9 +83,9 @@ header {
   max-width: 1600px;
 }
 section {
-  width: calc(100% - 40px); 
+  width: 100%; 
   margin: 40px auto;
-  margin-top: 106px;
+  margin-top: 88px;
   background: #FFF;
   box-sizing: border-box;
   border: 0;
@@ -125,6 +126,7 @@ nav ul li.tag-h1 a {
 nav ul li a:hover,
 nav ul li.active a {
   color: #fff;
+  font-weight: normal;
 }
 #banner .button {
   border: 0;
