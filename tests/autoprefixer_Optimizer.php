@@ -12,8 +12,8 @@ $CSS = new CSSTool\CSS;
 echo "Set load the initial CSS through a file" . PHP_EOL . PHP_EOL;
 $CSS->load('css/autoprefixer.css');
 // Output
-echo $CSS->get('string',false);
+//echo $CSS->get('string',false);
 
 //echo PHP_EOL . 'Adds prefixes' . PHP_EOL . PHP_EOL;
 // Output
-//echo $CSS->add_prefixes('string');
+echo $CSS->add_prefixes('string');

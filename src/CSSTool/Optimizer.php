@@ -7,13 +7,12 @@ class Optimizer
     private $prop_prefixes = [];
 
     public function __construct(){
-        
+        // Initialize the vendor prefixes
+        $this->set_o_prefixes();
+        $this->set_epub_prefixes();
+        $this->set_ms_prefixes();
         $this->set_webkit_prefixes();
         $this->set_moz_prefixes();
-        $this->set_o_prefixes();
-        $this->set_ms_prefixes();
-        $this->set_epub_prefixes();
-
     }
 
     static function from_parsed($parsedCSS){
@@ -23,11 +22,28 @@ class Optimizer
         $responseCSS = [];
         $selfInstance = new self;
         
+        // For every rule
         foreach($parsedCSS as $key=>$value){
-           var_dump($value);
+          // If the value is an array
+          if(is_array($value)){
+            foreach($value as $selector=>$props){
+                $aux_value = [];
+                foreach($props as $prop=>$value){
+                    foreach($selfInstance->prop_prefixes as $vendor=>$prefixes){
+                        if(in_array($prop,$prefixes)){
+                            $props = array_merge([$vendor.$prop => $value], $props);
+                        }
+                    }
+                }
+                $responseCSS[][$selector] = $props;
+            }
+          } else {
+            // If isn't an array
+            $responseCSS[$key]=$value;
+          }
         }
         
-        die("LALALA");
+        return $responseCSS;
     }
 
     public function set_webkit_prefixes(){
