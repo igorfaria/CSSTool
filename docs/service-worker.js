@@ -3,6 +3,7 @@ var urlsToCache = [
     '/CSSTool/assets/img/logo.png',
     'service-worker.js?v1',
     'manifest.json?v1',
+    '/',
 ];
 console.log('loading sw');
 
