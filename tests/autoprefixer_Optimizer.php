@@ -14,6 +14,6 @@ $CSS->load('css/autoprefixer.css');
 // Output
 //echo $CSS->get('string',false);
 
-//echo PHP_EOL . 'Adds prefixes' . PHP_EOL . PHP_EOL;
+echo PHP_EOL . 'Adds prefixes' . PHP_EOL . PHP_EOL;
 // Output
 echo $CSS->add_prefixes('string');
