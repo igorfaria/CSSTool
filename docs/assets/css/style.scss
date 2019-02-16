@@ -131,7 +131,8 @@ nav ul li.active a {
   border-radius: 0;
   box-shadow: none;
 }
-#banner .fork {
+#banner .fork ,
+#banner .button.fork:hover{
   background: #650582;
   left: 290px;
   margin-top: 9px;
