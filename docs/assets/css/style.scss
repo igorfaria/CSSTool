@@ -12,11 +12,27 @@
 body {
   background: var(--primary_color_lol);
   font: 18px/22px Nunito, 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #929292;
 }
 
 h1,h2,h3,h4,h5,h6 {
   font-family: Merriweather;
   font-weight: 900;
+  color: #9c8020;
+}
+
+h1 {
+  font-size: 34px;
+}
+
+h2 {
+  font-size: 28px;
+  margin-top: 50px;
+}
+
+h3 {
+  font-size: 22px;
+  margin-top: 40px;
 }
 
 strong,b {
@@ -29,11 +45,15 @@ footer {
  text-align: center;
  width: 100%;
  color: #f8f8f8;
- background: #078266;
+ background: #008466;
 }
 
 footer a {
-  color: #929090;
+  color: #18ffca;
+}
+
+footer small {
+  opacity: .6;
 }
 
 li input[type="checkbox"] {
@@ -134,12 +154,12 @@ nav ul li a {
 
 nav ul li.tag-h1 a {
   color: #e2e2e2;
+  font-weight: normal;
 }
 
 nav ul li a:hover,
 nav ul li.active a {
   color: #fff;
-  font-weight: normal;
 }
 #banner .button {
   border: 0;
