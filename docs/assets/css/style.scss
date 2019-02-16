@@ -157,6 +157,11 @@ nav ul li.active a {
   background-color: #1cad23;
   color: #FFF;
 }
+
+#banner .downloads ul li:last-of-type {
+  display:none;
+}
+
 #banner .button:hover {
   background: #7b0a9c;
   color: #720891;
