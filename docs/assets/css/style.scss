@@ -13,6 +13,7 @@ body {
   background: var(--primary_color_lol);
   font: 18px/22px Nunito, 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #929292;
+  padding-bottom: 0;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -46,6 +47,8 @@ footer {
  width: 100%;
  color: #f8f8f8;
  background: #008466;
+ padding-top: 30px;
+ padding-bottom: 20px;
 }
 
 footer a {
@@ -117,7 +120,7 @@ header {
 }
 section {
   width: 100%; 
-  margin: 40px auto;
+  margin: 0 auto;
   margin-top: 88px;
   background: #000;
   box-sizing: border-box;
