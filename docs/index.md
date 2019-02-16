@@ -41,7 +41,7 @@ You can run them through a web browser or using the command line.
 
   /* Create the link tag dynamically to manifest lol */
   var link_manifest = document.createElement('link');
-      link_manifest.href = "manifest.json";
+      link_manifest.href = "manifest.json?v1";
       link_manifest.rel = 'manifest';
       header_tag.appendChild(link_manifest);
 
@@ -55,7 +55,7 @@ You can run them through a web browser or using the command line.
   /* Try to register the empty service-worker, to "add to home banner" in Chrome */
   if ('serviceWorker' in navigator) {
     console.log("Will the service worker register?");
-    navigator.serviceWorker.register('service-worker.js')
+    navigator.serviceWorker.register('service-worker.js?v1')
       .then(function(reg){
         console.log("Yes, it did.");
       }).catch(function(err) {
