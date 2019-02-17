@@ -1,6 +1,17 @@
 # CSS Tool
 
 Another CSS tool in CSS.
+-------
+This is a <strong>CSS optimizer</strong> that parse CSS code into an set of associatives arrays, allowing to manipulate the CSS with PHP and execute the magic, outputing as a text or into a file.
+
+#### Optimize
+- Minify
+- Remove zeros when it is not needed (0.3s -> .3s)
+- Colors rgb to hex (*rgb(255,255,255)* -> *#fff*)
+- Colors hls to hex (*hsl(236, 0%, 0%)* -> *#000*)
+- Abbreviation for hex (*#ffcc00* -> *#fc0*)
+- Add prefixes (*-webkit-*, *-moz-*, *-ms-* and *-o-*)
+- Shorthand properties
 
 ## Installing
 
@@ -8,7 +19,7 @@ You have to install this way or this other way.
 
 ### Usage
 
-You can use the CSS Tool to optimize one or multiples CSS files.
+You can use the CSS Tool to optimize one or multiple CSS files.
 ```php
 <?php
 // Includes the autoloader file or directly the class files
@@ -39,26 +50,183 @@ And of course you can do much more, just check the public methods and you can do
 
 These are the methods:
 - *set($cssInput)* - string or array
--- Lorem ipsum dolor sit amet
+ to set the array of parsed css or in text, it will not append, it will replace the actual data
+
+You can use the set() method with an string, this string could came from a webform or from loaded from a file for example 
+```php
+<?php
+$CSSLoL = new CSSLoL();
+// Set an initial CSS from string
+$CSSLoL->set('body{color:#333}');
+echo $CSS->get('string');
+```
+
+Will output: 
+```css
+body{color:#333}
+```
+
+Or if you have an set of rules structured in an associative array, you can use that too:
+```php
+<?php
+$CSSLoL = new CSSLoL();
+// Set an initial CSS from array
+$rule = array( 
+    'body' => array('color' => '#333')
+);
+$CSSLoL->set($rule);
+echo $CSS->get('string');
+```
+
+Will output: 
+```css
+body{color:#333}
+```
 
 - *load($cssFilepath)* - string local or remote
--- Lorem ipsum dolor
+Loading a CSS file from a local path
+```php
+<?php
+$CSSLoL = new CSSLoL();
+// Load CSS from a file
+$CSSLoL->load('tests/example.css');
+echo $CSS->get('string');
+```
+
+Will output: 
+```css
+body{color:#333}
+```
+
+Loading a CSS file from an URL
+```php
+<?php
+$CSSLoL = new CSSLoL();
+// Load CSS from a file
+$CSSLoL->load('https://localhost/tests/example.css');
+echo $CSS->get('string');
+```
+
+Will output: 
+```css
+body{color:#333}
+```
 
 - *save($cssFilepath)* - string with path and name to the output file
+```php
+<?php
+$CSSLoL = new CSSLoL();
+$CSSLoL->set('body{color:#333}');
+// Create a minified file
+if($CSS->save('tests/css/example-min.css')){
+  echo 'File created with success';
+} else {
+  echo 'Something wrong...';
+}
+```
 
 - *parse($cssStringInput)* - string with CSS to be parsed
 
 - *append($cssInput)* - string or array to be added to the final of the CSS
+```php
+<?php
+$CSSLoL = new CSSLoL();
+// Set initial CSS 
+$CSSLoL->set('body{color:#333333;}');
+// Add rule to the end of the CSS
+$CSSLoL->append(array(
+    'p' => array('color'=>'#222222'),
+));
+echo $CSS->get('string');
+```
+
+Will output: 
+```css
+body{color:#333}p{color:#222}
+```
 
 - *prepend($cssInput)* - string or array to be added to the beginning of the of the CSS
+```php
+<?php
+$CSSLoL = new CSSLoL();
+// Set initial CSS 
+$CSSLoL->set('body{color:#333333;}');
+// Add rule to the beginning of the CSS
+$CSSLoL->prepend(array(
+    'p' => array('color'=>'#222222'),
+));
+echo $CSS->get('string');
+```
+
+Will output: 
+```css
+p{color:#222}body{color:#333}
+```
 
 - *get($format='array',$minified=true)* - get the CSS in the indicated format. 
 -- *$format* = 'array', 'string' or 'json'
 -- *$minified* = true or false
 
+The default value of the get() parameter is 'array', so the return will be an set of associatives arrays
+```php
+<?php
+$CSSLoL = new CSSLoL();
+$CSSLoL->load('tests/example.css');
+// Output as an array
+echo $CSS->get();
+```
+
+Will output: 
+```
+array(1) {
+  [0]=>
+  array(1) {
+    ["body"]=>
+    array(1) {
+      ["color"]=>
+      string(4) "#333"
+    }
+  }
+```
+<br><br>
+If you need the CSS in a string you have to indicate that with the string value 'string' 
+```php
+<?php
+$CSSLoL = new CSSLoL();
+$CSSLoL->load('tests/example.css');
+// Output as a string
+echo $CSS->get('string');
+```
+
+Will output: 
+```css
+body{color:#333}
+```
 
 #### Configs
-- *autoprefixer:* true or false
+- *autoprefixer:* (default: true) - add prefixes automatically if not yet defined to specified properties that you define
+
+```php
+<?php
+// An array with configs
+$configs = array(
+  // The default value is already true :D
+  'autoprefixer' => true,
+); 
+// Pass it through constructor
+$CSSLoL = new CSSLoL($configs);
+$CSSLoL->set('.example{transform: rotate(30deg);}');
+echo $CSSLoL->get('string',false);
+```
+Will output
+```css
+.example {
+    -webkit-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    transform: rotate(30deg);
+}
+```
+
 - *optimize:* true or false
 
 
