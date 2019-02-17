@@ -8,7 +8,27 @@ You have to install this way or this other way.
 
 ### Usage
 
-You use it like this.
+You can use the CSS Tool to optimize one or multiples CSS files.
+```php
+<?php
+// Includes the file with autoloader or directly
+#...
+// Declare the use of CSSTool
+use CSSTool;
+// Create an instance
+$CSS = new CSS;
+// Load a CSS file
+$CSS->load('assets/css/css1.css');
+// Load another CSS file
+$CSS->load('assets/css/css2.css');
+// Saves the final
+if($CSS->save('assets/css/optimized.minified.css')){
+  echo 'Saved with sucess!';
+} else {
+  echo 'Something went wrong...';
+}
+```
+And of course you can do much more, just check the public methods and you can do see that there is a lot more to do with CSS Tool.
 
 ### Methods
 

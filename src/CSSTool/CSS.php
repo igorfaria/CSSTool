@@ -41,7 +41,7 @@ class CSS
 
     public function load($cssFilepath){
         $Filer = new Filer($cssFilepath);
-        $this->set($Filer->get());
+        $this->add($Filer->get());
     }
 
     public function save($cssFilepath){
