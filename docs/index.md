@@ -50,6 +50,7 @@ And of course you can do much more, just check the public methods and you can do
 ### Methods
 
 These are the methods:
+
 **&#9900; $CSS->set(*$cssInput*)** - (*string* or *array*): to set the array of parsed css or in text, it will not append, it will replace the actual data
 
 You can use the set() method with an string, this string could came from a webform or from loaded from a file for example 
