@@ -1,8 +1,9 @@
 # CSS Tool
 
-Another CSS tool in CSS.
--------
+#### Another CSS tool in CSS.
+
 This is a <strong>CSS optimizer</strong> that parse CSS code into an set of associatives arrays, allowing to manipulate the CSS with PHP and execute the magic, outputing as a text or into a file.
+<br><br>
 
 #### Optimize
 - Minify
