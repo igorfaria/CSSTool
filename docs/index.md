@@ -50,7 +50,7 @@ And of course you can do much more, just check the public methods and you can do
 ### Methods
 
 These are the methods:
-- **set(*$cssInput*)** - (*string* or *array*): to set the array of parsed css or in text, it will not append, it will replace the actual data
+**set(*$cssInput*)** - (*string* or *array*): to set the array of parsed css or in text, it will not append, it will replace the actual data
 
 You can use the set() method with an string, this string could came from a webform or from loaded from a file for example 
 ```php
@@ -85,7 +85,7 @@ body{color:#333}
 ```
 <br><br>
 
-- **load(*$cssFilepath*)** - string with local path or remote URL to a CSS file
+**load(*$cssFilepath*)** - string with local path or remote URL to a CSS file
 
 Loading a CSS file from a local path
 
@@ -118,7 +118,7 @@ body{color:#333}
 ```
 <br><br>
 
-- **save(*$cssFilepath*)** - string with pathname to the output file
+**save(*$cssFilepath*)** - string with pathname to the output file
 
 ```php
 <?php
@@ -134,7 +134,7 @@ if($CSS->save('tests/css/example-min.css')){
 ```
 <br><br>
 
-- **parse(*$cssStringInput*)** - string with CSS to be parsed
+**parse(*$cssStringInput*)** - string with CSS to be parsed
 
 ```php
 <?php
@@ -169,7 +169,7 @@ array(2) {
 ```
 <br><br>
 
-- **append(*$cssInput*)** - string or array to be added to the final of the CSS
+**append(*$cssInput*)** - string or array to be added to the final of the CSS
 
 ```php
 <?php
@@ -189,7 +189,7 @@ body{color:#333}p{color:#222}
 ```
 <br><br>
 
-- **prepend(*$cssInput*)** - string or array to be added to the beginning of the of the CSS
+**prepend(*$cssInput*)** - string or array to be added to the beginning of the of the CSS
 
 ```php
 <?php
@@ -210,7 +210,7 @@ p{color:#222}body{color:#333}
 ```
 <br><br>
 
-- **get($format=[*'array','string','json'*],$minified=*true*)** - get the CSS in the indicated format. 
+**get($format=[*'array','string','json'*],$minified=*true*)** - get the CSS in the indicated format. 
 
 The default value of the get() parameter is 'array', so the return will be an set of associatives arrays
 ```php
