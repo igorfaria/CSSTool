@@ -33,8 +33,8 @@ class Minifier
     }
 
     private function remove_space_before_chars($stringInput){
-       // Remove space before characters :;,"\'{}()...  
-       return preg_replace('@\s*([\:;,."\'{}()])\s*@',"$1",$stringInput);   
+       // Remove space before characters :;,"\'{}(...  
+       return preg_replace('@\s*([\:;,."\'{}(])\s*@',"$1",$stringInput);   
     }
 
     private function remove_last_semicolon($stringInput){
