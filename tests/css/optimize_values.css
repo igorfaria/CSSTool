@@ -5,8 +5,8 @@ body {
     color: rgb(255,0,0);
 }
 .grouping_background {
-    background: url(example.gif);
-    background-color: #eaeaea ;
+    background-image: url(example.gif);
+    background-color:   hsl(236, 0%, 0%) ;
     background-repeat: repeat-x;
     background-position: top left;
     /*
@@ -16,7 +16,7 @@ body {
 }
 
 .grouping_border {
-    border-color: red;
+    border-color: #ff0000;
     border-width: 1px;
     border-style: solid;
     /* border: [width] [style] [color]; */
@@ -47,6 +47,20 @@ body {
         margin-left: 4px;
         /* margin: [top] [right] [bottom] [left] */
     }
+
+    .grouping_margin_2 {
+        margin-top: 1000000px;
+        margin-right: 2px; 
+        margin-bottom: 1000000px;
+        margin-left: 2px;        
+        /* :D overwrites */
+        margin-top: 1px;
+        margin-right: 2px; 
+        margin-bottom: 1px;
+        margin-left: 2px;
+        /* margin: [top-bottom] [left-right] */
+    }
+    
     .zero_anything {
         margin: 0px;
         padding: 0em;

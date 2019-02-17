@@ -152,15 +152,19 @@ class Optimizer
     public function optimize_value($stringValue){
             if(!is_string($stringValue)) return $stringValue;
             // Replace 0[type] values with 0
-            $stringValue = preg_replace('/0(?:em|ex|ch|rem|vw|vh|vm|vmin|cm|mm|in|px|pt|pc|%)/i', '${1}0', $stringValue);
+            $stringValue = preg_replace('/^0(?:em|ex|ch|rem|vw|vh|vm|vmin|cm|mm|in|px|pt|pc|%)/i', '${1}0', $stringValue);
+            // Replace xx.050[type] with xx.05[type]
+            $stringValue = preg_replace('/0(em|ex|ch|rem|vw|vh|vm|vmin|cm|mm|in|px|pt|pc|%)/','${1}', $stringValue);
+            // Replace -0.5 with -.5
+            $stringValue = preg_replace('/^-0./','-.', $stringValue);
             // Remove newline characters and tabs
             $stringValue = str_replace(["\r\n", "\r", "\n", "\t"], '', $stringValue);
             // Remove two or more consecutive spaces
             $stringValue = preg_replace('# {2,}#', ' ', $stringValue);
             // Optimize rgb to hex
-            $stringValue = $this->rgbToHex($stringValue);
+            $stringValue = $this->rgb_to_hex($stringValue);
             // Optimize hsl to hex
-            $stringValue = $this->hslToHex($stringValue);
+            $stringValue = $this->hsl_to_hex($stringValue);
             // Compress hex colors => #ffffff -> #fff
             if(preg_match_all('/#(?>[[:xdigit:]]{3}){1,2}$/', $stringValue, $hex_colors)){
                 foreach($hex_colors[0] as $hex_color){
@@ -173,7 +177,7 @@ class Optimizer
     public function optimize_props($arrayProps){
         // If isnt an array, return whatever it is
         if(!is_array($arrayProps)) return $arrayProps;
-        
+      
         $optimizedProps = [];
         foreach($arrayProps as $prop=>$value){
             if(is_string($value)){
@@ -182,12 +186,121 @@ class Optimizer
                 $optimizedProps[$prop] = $this->optimize_props($value);
             }            
         }
+
+        // Optimize to shorthanded versions :P
+        $optimizedProps = $this->shorthand($optimizedProps);
+
         return $optimizedProps;
+    }
+
+    private function shorthand($arrayProps){
+        
+        // background: [color] [bg-image] [repeat] [attachment] [position [[top] [left]];
+        if(!isset($arrayProps['background'])){
+            $background_shorthanded = [];
+            $props = ['background-color', 'background-image', 'background-repeat', 
+                      'background-attachment', 'background-position'];
+            
+            foreach($props as $prop){
+                if(isset($arrayProps[$prop])){
+                    $background_shorthanded[] = $arrayProps[$prop];
+                    unset($arrayProps[$prop]);
+                }
+            }
+            
+            if(count($background_shorthanded)){
+                $arrayProps['background'] = implode(' ', $background_shorthanded);
+            }
+        }
+
+        // border: border-width border-style (required) border-color
+        if(!isset($arrayProps['border']) AND isset($arrayProps['border-style'])){
+            $borders_short = [];
+            $props = ['border-width', 'border-style', 'border-color'];
+                
+            foreach($props as $prop){
+                if(isset($arrayProps[$prop])){
+                    $borders_short[] = $arrayProps[$prop];
+                    unset($arrayProps[$prop]);
+                }
+            }
+            
+            if(count($borders_short)){
+                $arrayProps['border'] = implode(' ', $borders_short);
+            }
+        }
+
+        // list-style: [list-style-type] [list-style-position] [list-style-image];
+        if(!isset($arrayProps['list-style'])){
+            $borders_short = [];
+            $props = ['list-style-type', 'list-style-position', 'list-style-image'];
+                
+            foreach($props as $prop){
+                if(isset($arrayProps[$prop])){
+                    $borders_short[] = $arrayProps[$prop];
+                    unset($arrayProps[$prop]);
+                }
+            }
+            
+            if(count($borders_short)){
+                $arrayProps['list-style'] = implode(' ', $borders_short);
+            }
+        }
+
+        // font: font-style font-variant font-weight font-size/line-height font-family;
+        if(!isset($arrayProps['font']) AND
+            isset($arrayProps['font-size']) AND
+            isset($arrayProps['font-family'])
+        ){
+            $borders_short = [];
+
+            if(isset($arrayProps['line-height'])){
+                $arrayProps['font-size'] .= '/' . $arrayProps['line-height'];
+                unset($arrayProps['line-height']);
+            }
+
+            $props = ['font-style', 'font-variant','font-weight','font-size','font-family'];
+                
+            foreach($props as $prop){
+                if(isset($arrayProps[$prop])){
+                    $borders_short[] = $arrayProps[$prop];
+                    unset($arrayProps[$prop]);
+                }
+            }
+            
+            if(count($borders_short)){
+                $arrayProps['font'] = implode(' ', $borders_short);
+            }
+        }
+
+      // margin: top right bottom left;
+      if(!isset($arrayProps['margin']) AND
+          isset($arrayProps['margin-top']) AND
+          isset($arrayProps['margin-right']) AND
+          isset($arrayProps['margin-bottom']) AND
+          isset($arrayProps['margin-left'])
+      ){
+        if($arrayProps['margin-top'] == $arrayProps['margin-bottom'] AND
+           $arrayProps['margin-right'] == $arrayProps['margin-left']
+        ){
+            $arrayProps['margin'] = $arrayProps['margin-top'] . ' ' . $arrayProps['margin-right'];
+        } else {
+            $arrayProps['margin'] = $arrayProps['margin-top'] . ' '
+                                  . $arrayProps['margin-right'] . ' '
+                                  . $arrayProps['margin-bottom'] . ' ' 
+                                  . $arrayProps['margin-left'];
+        }
+        unset($arrayProps['margin-top']);
+        unset($arrayProps['margin-right']);
+        unset($arrayProps['margin-bottom']);
+        unset($arrayProps['margin-left']);
+      }
+
+        return $arrayProps;
     }
          
     
-    /** Converts rgb(43, 92, 160) or rgb(16.9%, 36.1%, 62.7%) to hex value (#2b5ca0). */
-    protected function rgbToHex($stringValue) {
+    protected function rgb_to_hex($stringValue) {
         preg_match_all('#rgb\s*\(\s*([0-9%,\.\s]+)\s*\)#s', $stringValue, $match);
         if (!empty($match[1])) {
           
@@ -195,17 +308,13 @@ class Optimizer
                 $rgbcolors = explode(',', $value);
                 $hexcolor  = '#';
                 for ($i = 0; $i < 3; $i++) {
-                    #
                     # Handling percentage values
-                    #
                     if (strpos($rgbcolors[$i], '%') !== FALSE) {
                         $rgbcolors[$i] = substr($rgbcolors[$i], 0, -1);
                         $rgbcolors[$i] = (int) (256 * ($rgbcolors[$i] / 100));
                         $hexcolor .= str_pad(dechex($rgbcolors[$i]),  2, '0', STR_PAD_LEFT);
 					} else {
-                        #
                         # Process values in integers
-                        #
                         $color = round($rgbcolors[$i]);
                         if ($color < 16) {
                             $hexcolor .= '0';
@@ -218,8 +327,8 @@ class Optimizer
         }
         return $stringValue;
     }
-    /** Converts hsl(214.9,57.6%,39.8%) to hex value (#2b5ca0). */
-    private function hslToHex($stringValue) {
+
+    private function hsl_to_hex($stringValue) {
         preg_match_all('#hsl\s*\(\s*([0-9%,\.\s]+)\s*\)#s', $stringValue, $match);
         foreach ($match[1] as $key => $hls) {
             $values = explode(',', str_replace('%', '', $hls));
@@ -234,24 +343,17 @@ class Optimizer
              } else {
                 $v2 = $l < 0.5 ? $l * (1 + $s) : ($l + $s) - ($s * $l);
                 $v1 = 2 * $l - $v2;
-                $red   = intval(floor(floatval(255 * $this->toRgb($v1, $v2, $h + (1/3))) + 0.5), 10);
-                $green = intval(floor(floatval(255 * $this->toRgb($v1, $v2, $h)) + 0.5), 10);
-                $blue  = intval(floor(floatval(255 * $this->toRgb($v1, $v2, $h - (1/3))) + 0.5), 10);
+                $red   = intval(floor(floatval(255 * $this->to_rgb($v1, $v2, $h + (1/3))) + 0.5), 10);
+                $green = intval(floor(floatval(255 * $this->to_rgb($v1, $v2, $h)) + 0.5), 10);
+                $blue  = intval(floor(floatval(255 * $this->to_rgb($v1, $v2, $h - (1/3))) + 0.5), 10);
             }
             $hexcolor = '#'.str_pad(dechex(round($red)), 2, '0', STR_PAD_LEFT).str_pad(dechex(round($green)), 2, '0', STR_PAD_LEFT).str_pad(dechex(round($blue)), 2, '0', STR_PAD_LEFT);
             $stringValue = str_replace($match[0][$key], $hexcolor, $stringValue);
         }
         return $stringValue;
     }
-    /**
-     * Helper function to convert hsl to rgb.
-     *
-     * @param  integer $v1  Helper value
-     * @param  integer $v2  Helper value
-     * @param  integer $hue Value of hue
-     * @return integer      The result
-     */
-    private function toRgb($v1, $v2, $hue) {
+    
+    private function to_rgb($v1, $v2, $hue) {
         $hue = $hue < 0 ? $hue + 1 : ($hue > 1 ? $hue - 1 : $hue);
         if ($hue * 6 < 1) return $v1 + ($v2 - $v1) * 6 * $hue;
         if ($hue * 2 < 1) return $v2;
