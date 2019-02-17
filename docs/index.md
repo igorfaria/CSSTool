@@ -50,15 +50,14 @@ And of course you can do much more, just check the public methods and you can do
 ### Methods
 
 These are the methods:
-- *set($cssInput)* - string or array
- to set the array of parsed css or in text, it will not append, it will replace the actual data
+- **set(*$cssInput*)** - (*string* or *array*): to set the array of parsed css or in text, it will not append, it will replace the actual data
 
 You can use the set() method with an string, this string could came from a webform or from loaded from a file for example 
 ```php
 <?php
-$CSSLoL = new CSSLoL();
+$CSS = new CSSTool\CSS;
 // Set an initial CSS from string
-$CSSLoL->set('body{color:#333}');
+$CSS->set('body{color:#333}');
 echo $CSS->get('string');
 ```
 
@@ -70,12 +69,13 @@ body{color:#333}
 Or if you have an set of rules structured in an associative array, you can use that too:
 ```php
 <?php
-$CSSLoL = new CSSLoL();
+$CSS = new CSSTool\CSS;
+
 // Set an initial CSS from array
 $rule = array( 
     'body' => array('color' => '#333')
 );
-$CSSLoL->set($rule);
+$CSS->set($rule);
 echo $CSS->get('string');
 ```
 
@@ -83,14 +83,18 @@ Will output:
 ```css
 body{color:#333}
 ```
+<br><br>
 
-- *load($cssFilepath)* - string local or remote
+- **load(*$cssFilepath*)** - string with local path or remote URL to a CSS file
+
 Loading a CSS file from a local path
+
 ```php
 <?php
-$CSSLoL = new CSSLoL();
+$CSS = new CSSTool\CSS;
+
 // Load CSS from a file
-$CSSLoL->load('tests/example.css');
+$CSS->load('tests/example.css');
 echo $CSS->get('string');
 ```
 
@@ -102,9 +106,9 @@ body{color:#333}
 Loading a CSS file from an URL
 ```php
 <?php
-$CSSLoL = new CSSLoL();
+$CSS = new CSSTool\CSS;
 // Load CSS from a file
-$CSSLoL->load('https://localhost/tests/example.css');
+$CSS->load('https://localhost/tests/example.css');
 echo $CSS->get('string');
 ```
 
@@ -112,30 +116,67 @@ Will output:
 ```css
 body{color:#333}
 ```
+<br><br>
 
-- *save($cssFilepath)* - string with path and name to the output file
+- **save(*$cssFilepath*)** - string with pathname to the output file
+
 ```php
 <?php
-$CSSLoL = new CSSLoL();
-$CSSLoL->set('body{color:#333}');
+$CSS = new CSSTool\CSS;
+
+$CSS->set('body{color:#333}');
 // Create a minified file
 if($CSS->save('tests/css/example-min.css')){
   echo 'File created with success';
 } else {
-  echo 'Something wrong...';
+  echo 'Something went wrong...';
 }
 ```
+<br><br>
 
-- *parse($cssStringInput)* - string with CSS to be parsed
-
-- *append($cssInput)* - string or array to be added to the final of the CSS
+- **parse(*$cssStringInput*)** - string with CSS to be parsed
 ```php
 <?php
-$CSSLoL = new CSSLoL();
+// Create an instance
+$CSS = new CSSTool\CSS;
+// string with CSS
+$stringCSS = 'body {color:red;} p {margin:0}';
+// Array with parsed CSS
+$parsedCSS = $CSS->parse($stringCSS);
+// Output
+var_dump($parsedCSS);
+```
+
+Will output: 
+```
+array(2) {
+  [0]=>
+  array(1) {
+    ["body"]=>
+    array(1) {
+      ["color"]=>
+      string(3) "red"
+    },
+  [1]=>
+  array(1) {
+    ["p"]=>
+    array(1) {
+      ["margin"]=>
+      string(1) "0"
+    }
+  }
+```
+<br><br>
+
+- **append(*$cssInput*)** - string or array to be added to the final of the CSS
+
+```php
+<?php
+$CSS = new CSSTool\CSS;
 // Set initial CSS 
-$CSSLoL->set('body{color:#333333;}');
+$CSS->set('body{color:#333333;}');
 // Add rule to the end of the CSS
-$CSSLoL->append(array(
+$CSS->append(array(
     'p' => array('color'=>'#222222'),
 ));
 echo $CSS->get('string');
@@ -145,13 +186,16 @@ Will output:
 ```css
 body{color:#333}p{color:#222}
 ```
+<br><br>
 
-- *prepend($cssInput)* - string or array to be added to the beginning of the of the CSS
+- **prepend(*$cssInput*)** - string or array to be added to the beginning of the of the CSS
+
 ```php
 <?php
-$CSSLoL = new CSSLoL();
+$CSS = new CSSTool\CSS;
+
 // Set initial CSS 
-$CSSLoL->set('body{color:#333333;}');
+$CSS->set('body{color:#333333;}');
 // Add rule to the beginning of the CSS
 $CSSLoL->prepend(array(
     'p' => array('color'=>'#222222'),
@@ -163,16 +207,15 @@ Will output:
 ```css
 p{color:#222}body{color:#333}
 ```
+<br><br>
 
-- *get($format='array',$minified=true)* - get the CSS in the indicated format. 
--- *$format* = 'array', 'string' or 'json'
--- *$minified* = true or false
+- **get($format=[*'array','string','json'*],$minified=*true*)** - get the CSS in the indicated format. 
 
 The default value of the get() parameter is 'array', so the return will be an set of associatives arrays
 ```php
 <?php
-$CSSLoL = new CSSLoL();
-$CSSLoL->load('tests/example.css');
+$CSS = new CSSTool\CSS;
+$CSS->load('tests/example.css');
 // Output as an array
 echo $CSS->get();
 ```
@@ -205,39 +248,23 @@ body{color:#333}
 ```
 
 #### Configs
-- *autoprefixer:* (default: true) - add prefixes automatically if not yet defined to specified properties that you define
+- **autoprefixer:** (*default: true*) - add prefixes automatically if not yet defined to specified properties that you define and require vendor prefixes
+- **optimize:** (*default: true*) - optimize values and properties of CSS
 
 ```php
 <?php
-// An array with configs
-$configs = array(
-  // The default value is already true :D
-  'autoprefixer' => true,
-); 
-// Pass it through constructor
-$CSSLoL = new CSSLoL($configs);
-$CSSLoL->set('.example{transform: rotate(30deg);}');
-echo $CSSLoL->get('string',false);
+// Passing autoprefixer as false through constructor, for whatever reason you need it 
+$CSS = new CSSTool\CSS(['autoprefixer'=>false]); 
 ```
-Will output
-```css
-.example {
-    -webkit-transform: rotate(30deg);
-    -ms-transform: rotate(30deg);
-    transform: rotate(30deg);
-}
-```
-
-- *optimize:* true or false
-
+<br><br>
 
 ### Tools
 
-- CSS 
-- Filer
-- Parser
-- Optimizer
-- Minifier
+- **CSS** - Optimizes CSS
+- **Filer** - Read, Create and Delete files
+- **Parser** - Parse CSS string into array of parsed CSS
+- **Optimizer** - Optimize properties and values of a parsed CSS
+- **Minifier** - Minify CSS output
 
 ###### Running the tests
 
