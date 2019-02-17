@@ -1,8 +1,8 @@
-var CACHE_NAME = 'pwgen-cache-v1';
+var CACHE_NAME = 'pwgen-cache-v2';
 var urlsToCache = [
     '/CSSTool/assets/img/logo.png',
-    'service-worker.js?v1',
-    'manifest.json?v1',
+    '/CSSTool/service-worker.js?v2',
+    '/CSSTool/manifest.json?v2',
     '/',
 ];
 console.log('loading sw');
