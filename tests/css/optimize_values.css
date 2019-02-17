@@ -1,0 +1,57 @@
+body {
+    margin: 1.050px;
+    transition: .3s;
+    margin-bottom: -0.2rem;
+    color: rgb(255,0,0);
+}
+.grouping_background {
+    background: url(example.gif);
+    background-color: #eaeaea ;
+    background-repeat: repeat-x;
+    background-position: top left;
+    /*
+    Could be rewrited like this:
+        background: [color] [bg-image] [repeat] [position [[top] [left]];
+    */
+}
+
+.grouping_border {
+    border-color: red;
+    border-width: 1px;
+    border-style: solid;
+    /* border: [width] [style] [color]; */
+}
+
+.grouping_list_style {
+    list-style-position: outside;
+    list-style-image: none;
+    list-style-type: disc;
+    /* list-style: [list-style-type] [list-style-position] [list-style-image]; */
+}
+
+.grouping_font {
+    font-family: Arial, Helvetica;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1em;
+    line-height: 1.5em;
+    /* font: [font-weight] [font-style] [font-size]/[line-height] [font-family]; */
+}
+
+@media all and (max-width: 768px){
+
+    .grouping_margin {
+        margin-top: 1px;
+        margin-right: 2px; 
+        margin-bottom: 3px;
+        margin-left: 4px;
+        /* margin: [top] [right] [bottom] [left] */
+    }
+    .zero_anything {
+        margin: 0px;
+        padding: 0em;
+        width: 0%;
+        border: 0rem  solid   #ffffff; 
+    }
+}
+

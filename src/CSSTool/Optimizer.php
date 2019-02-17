@@ -147,5 +147,122 @@ class Optimizer
         ];
         return $this->prop_prefixes;
     }
-            
+
+
+    public function optimize_value($stringValue){
+            if(!is_string($stringValue)) return $stringValue;
+            // Replace 0[type] values with 0
+            $stringValue = preg_replace('/0(?:em|ex|ch|rem|vw|vh|vm|vmin|cm|mm|in|px|pt|pc|%)/i', '${1}0', $stringValue);
+            // Remove newline characters and tabs
+            $stringValue = str_replace(["\r\n", "\r", "\n", "\t"], '', $stringValue);
+            // Remove two or more consecutive spaces
+            $stringValue = preg_replace('# {2,}#', ' ', $stringValue);
+            // Optimize rgb to hex
+            $stringValue = $this->rgbToHex($stringValue);
+            // Optimize hsl to hex
+            $stringValue = $this->hslToHex($stringValue);
+            // Compress hex colors => #ffffff -> #fff
+            if(preg_match_all('/#(?>[[:xdigit:]]{3}){1,2}$/', $stringValue, $hex_colors)){
+                foreach($hex_colors[0] as $hex_color){
+                    $stringValue = str_replace($hex_color, $this->compress_hex($hex_color), $stringValue);   
+                }
+            }
+            return $stringValue;
+    }
+
+    public function optimize_props($arrayProps){
+        // If isnt an array, return whatever it is
+        if(!is_array($arrayProps)) return $arrayProps;
+        
+        $optimizedProps = [];
+        foreach($arrayProps as $prop=>$value){
+            if(is_string($value)){
+                $optimizedProps[$prop] = $this->optimize_value($value);
+            } elseif(is_array($value)) {
+                $optimizedProps[$prop] = $this->optimize_props($value);
+            }            
+        }
+        return $optimizedProps;
+    }
+         
+    
+    /** Converts rgb(43, 92, 160) or rgb(16.9%, 36.1%, 62.7%) to hex value (#2b5ca0). */
+    protected function rgbToHex($stringValue) {
+        preg_match_all('#rgb\s*\(\s*([0-9%,\.\s]+)\s*\)#s', $stringValue, $match);
+        if (!empty($match[1])) {
+          
+            foreach ($match[1] as $key => $value) {
+                $rgbcolors = explode(',', $value);
+                $hexcolor  = '#';
+                for ($i = 0; $i < 3; $i++) {
+                    #
+                    # Handling percentage values
+                    #
+                    if (strpos($rgbcolors[$i], '%') !== FALSE) {
+                        $rgbcolors[$i] = substr($rgbcolors[$i], 0, -1);
+                        $rgbcolors[$i] = (int) (256 * ($rgbcolors[$i] / 100));
+                        $hexcolor .= str_pad(dechex($rgbcolors[$i]),  2, '0', STR_PAD_LEFT);
+					} else {
+                        #
+                        # Process values in integers
+                        #
+                        $color = round($rgbcolors[$i]);
+                        if ($color < 16) {
+                            $hexcolor .= '0';
+                        }
+                        $hexcolor .= dechex($color);
+                    }
+                }
+                $stringValue = str_replace($match[0][$key], $hexcolor, $stringValue);
+            }
+        }
+        return $stringValue;
+    }
+    /** Converts hsl(214.9,57.6%,39.8%) to hex value (#2b5ca0). */
+    private function hslToHex($stringValue) {
+        preg_match_all('#hsl\s*\(\s*([0-9%,\.\s]+)\s*\)#s', $stringValue, $match);
+        foreach ($match[1] as $key => $hls) {
+            $values = explode(',', str_replace('%', '', $hls));
+            $h = floatval($values[0]);
+            $s = floatval($values[1]);
+            $l = floatval($values[2]);
+            $h = ((($h % 360) + 360) % 360) / 360;
+            $s = min(max($s, 0), 100) / 100;
+            $l = min(max($l, 0), 100) / 100;
+            if ($s === 0) {
+                $red = $green = $blue = intval(floor(floatval(255 * $l) + 0.5), 10);
+             } else {
+                $v2 = $l < 0.5 ? $l * (1 + $s) : ($l + $s) - ($s * $l);
+                $v1 = 2 * $l - $v2;
+                $red   = intval(floor(floatval(255 * $this->toRgb($v1, $v2, $h + (1/3))) + 0.5), 10);
+                $green = intval(floor(floatval(255 * $this->toRgb($v1, $v2, $h)) + 0.5), 10);
+                $blue  = intval(floor(floatval(255 * $this->toRgb($v1, $v2, $h - (1/3))) + 0.5), 10);
+            }
+            $hexcolor = '#'.str_pad(dechex(round($red)), 2, '0', STR_PAD_LEFT).str_pad(dechex(round($green)), 2, '0', STR_PAD_LEFT).str_pad(dechex(round($blue)), 2, '0', STR_PAD_LEFT);
+            $stringValue = str_replace($match[0][$key], $hexcolor, $stringValue);
+        }
+        return $stringValue;
+    }
+    /**
+     * Helper function to convert hsl to rgb.
+     *
+     * @param  integer $v1  Helper value
+     * @param  integer $v2  Helper value
+     * @param  integer $hue Value of hue
+     * @return integer      The result
+     */
+    private function toRgb($v1, $v2, $hue) {
+        $hue = $hue < 0 ? $hue + 1 : ($hue > 1 ? $hue - 1 : $hue);
+        if ($hue * 6 < 1) return $v1 + ($v2 - $v1) * 6 * $hue;
+        if ($hue * 2 < 1) return $v2;
+        if ($hue * 3 < 2) return $v1 + ($v2 - $v1) * ((2/3) - $hue) * 6;
+        return $v1;
+    }
+
+    private function compress_hex($original){
+        if (strlen($original) == 7 && $original[1] == $original[2]
+        && $original[3] == $original[4]  && $original[5] == $original[6]) {
+          return "#" . $original[1] . $original[3] . $original[5];
+        } else return $original;
+    }
 }

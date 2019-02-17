@@ -128,4 +128,20 @@ class CSS
         return $this->get($format,false,true);
     }
     
+    public function optimize(){
+        $Optimizer = new Optimizer;
+        $optimizedCSS = [];
+        
+        // For each rule :D
+        foreach($this->parsedCSS as $rule){
+            $new_rule = [];
+            foreach($rule as $selector=>$props){
+                $new_rule[$selector] = $Optimizer->optimize_props($props);
+            }
+            $optimizedCSS[] = $new_rule;
+        }
+
+        $this->parsedCSS = $optimizedCSS;
+    }
+
 }
