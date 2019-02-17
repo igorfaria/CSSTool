@@ -12,12 +12,30 @@ You use it like this.
 
 ### Methods
 
-These are the methods
+These are the methods:
+- *set($cssInput)* - string or array
+-- Lorem ipsum dolor sit amet
 
-- Method 1
--- You use it this way
-- Method 2
--- This one you use like this
+- *load($cssFilepath)* - string local or remote
+-- Lorem ipsum dolor
+
+- *save($cssFilepath)* - string with path and name to the output file
+
+- *parse($cssStringInput)* - string with CSS to be parsed
+
+- *append($cssInput)* - string or array to be added to the final of the CSS
+
+- *prepend($cssInput)* - string or array to be added to the beginning of the of the CSS
+
+- *get($format='array',$minified=true)* - get the CSS in the indicated format. 
+-- *$format* = 'array', 'string' or 'json'
+-- *$minified* = true or false
+
+
+#### Configs
+- *autoprefixer:* true or false
+- *optimize:* true or false
+
 
 ### Tools
 
@@ -37,6 +55,7 @@ You can run them through a web browser or using the command line.
 
 
 <script>
+  <!--
   var header_tag = document.getElementsByTagName('head')[0];
 
   /* Create the link tag dynamically to manifest lol */
@@ -69,4 +88,5 @@ You can run them through a web browser or using the command line.
         console.log("No it didn't. This happened: ", err)
       });
   }
+  -->
 </script>

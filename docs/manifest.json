@@ -1,6 +1,6 @@
 {
-    "short_name": "CSSTool",
-    "name": "CSS Tool",
+    "short_name": "CSS Tool",
+    "name": "CSS Tool in PHP",
     "icons": [
         {
             "src":"/CSSTool/assets/img/logo-192px.png",

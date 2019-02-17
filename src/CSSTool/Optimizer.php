@@ -214,21 +214,31 @@ class Optimizer
         }
 
         // border: border-width border-style (required) border-color
-        if(!isset($arrayProps['border']) AND isset($arrayProps['border-style'])){
-            $borders_short = [];
-            $props = ['border-width', 'border-style', 'border-color'];
+        if(!isset($arrayProps['border'])){
+            if(isset($arrayProps['border-style'])){
+                $borders_short = [];
+                $props = ['border-width', 'border-style', 'border-color'];
+                    
+                foreach($props as $prop){
+                    if(isset($arrayProps[$prop])){
+                        $borders_short[] = $arrayProps[$prop];
+                        unset($arrayProps[$prop]);
+                    }
+                }
                 
-            foreach($props as $prop){
-                if(isset($arrayProps[$prop])){
-                    $borders_short[] = $arrayProps[$prop];
-                    unset($arrayProps[$prop]);
+                if(count($borders_short)){
+                    $arrayProps['border'] = implode(' ', $borders_short);
                 }
             }
-            
-            if(count($borders_short)){
-                $arrayProps['border'] = implode(' ', $borders_short);
-            }
         }
+        // Not else :D        
+        if(isset($arrayProps['border'])){
+            // Replace "border: 0 [style] [color]" with "border: 0"
+            if(preg_match('/^([0]+)\s+/s', $arrayProps['border'])){
+                $arrayProps['border'] = '0';
+            }   
+        }
+
 
         // list-style: [list-style-type] [list-style-position] [list-style-image];
         if(!isset($arrayProps['list-style'])){

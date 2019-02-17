@@ -16,6 +16,8 @@ class CSS
         $this->config = array(
             // Optimize output
             'optimize' => true,
+            // Autoprefixer vendor
+            'autoprefixer' => true,
         );
         // If $config is an array, overwrites the default value
         if(is_array($config)){
@@ -93,11 +95,15 @@ class CSS
         return true;
     }
 
-    public function get($format='array',$minified=true,$prefixes=false){
+    public function get($format='array',$minified=true){
         $parsedCSS = $this->parsedCSS;
         
-        if($prefixes){
+        if(isset($this->config['autoprefixer']) and $this->config['autoprefixer']){
             $parsedCSS = Optimizer::from_parsed($parsedCSS);
+        }
+
+        if(isset($this->config['optimize']) and $this->config['optimize']){
+            $parsedCSS = $this->optimize($parsedCSS);
         }
 
         switch($format){
@@ -123,17 +129,13 @@ class CSS
                 break;
         }
     }
-
-    public function add_prefixes($format){
-        return $this->get($format,false,true);
-    }
     
-    public function optimize(){
+    private function optimize($inputArray){
         $Optimizer = new Optimizer;
         $optimizedCSS = [];
         
         // For each rule :D
-        foreach($this->parsedCSS as $rule){
+        foreach($inputArray as $rule){
             $new_rule = [];
             foreach($rule as $selector=>$props){
                 $new_rule[$selector] = $Optimizer->optimize_props($props);
@@ -141,7 +143,7 @@ class CSS
             $optimizedCSS[] = $new_rule;
         }
 
-        $this->parsedCSS = $optimizedCSS;
+        return $optimizedCSS;
     }
 
 }
