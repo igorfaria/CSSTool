@@ -135,6 +135,7 @@ if($CSS->save('tests/css/example-min.css')){
 <br><br>
 
 - **parse(*$cssStringInput*)** - string with CSS to be parsed
+
 ```php
 <?php
 // Create an instance
@@ -246,6 +247,7 @@ Will output:
 ```css
 body{color:#333}
 ```
+<br><br>
 
 #### Configs
 - **autoprefixer:** (*default: true*) - add prefixes automatically if not yet defined to specified properties that you define and require vendor prefixes
@@ -265,6 +267,7 @@ $CSS = new CSSTool\CSS(['autoprefixer'=>false]);
 - **Parser** - Parse CSS string into array of parsed CSS
 - **Optimizer** - Optimize properties and values of a parsed CSS
 - **Minifier** - Minify CSS output
+<br><br>
 
 ###### Running the tests
 
