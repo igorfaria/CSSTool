@@ -51,6 +51,13 @@ You can run them through a web browser or using the command line.
       link_favicon.rel = 'shortcut icon';
       link_favicon.type = 'image/png';
       header_tag.appendChild(link_favicon);
+
+  
+  /* Create the meta tag theme-color dynamically  lol */
+  var meta_themecolor = document.createElement('meta');
+      meta_themecolor.name = "theme-color";
+      meta_themecolor.content = '#4e0863';
+      header_tag.appendChild(meta_themecolor);
   
   /* Try to register the empty service-worker, to "add to home banner" in Chrome */
   if ('serviceWorker' in navigator) {
