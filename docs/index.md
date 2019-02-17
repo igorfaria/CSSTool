@@ -11,16 +11,21 @@ You have to install this way or this other way.
 You can use the CSS Tool to optimize one or multiples CSS files.
 ```php
 <?php
-// Includes the file with autoloader or directly
-#...
+// Includes the autoloader file or directly the class files
+require 'vendor/autoload.php';
+
 // Declare the use of CSSTool
 use CSSTool;
+
 // Create an instance
 $CSS = new CSS;
+
 // Load a CSS file
 $CSS->load('assets/css/css1.css');
+
 // Load another CSS file
 $CSS->load('assets/css/css2.css');
+
 // Saves the final
 if($CSS->save('assets/css/optimized.minified.css')){
   echo 'Saved with sucess!';
