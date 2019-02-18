@@ -6,7 +6,7 @@ This is a <strong>CSS optimizer</strong> that parse CSS code into an set of asso
 <br><br>
 
 #### Optimize
-- Minify replacing multiple spaces, break lines and last semicolons
+- Replace multiple spaces, break lines and last semicolons
 - Remove zeros when it is not needed (0.3s -> .3s)
 - Colors rgb to hex (*rgb(255,255,255)* -> *#fff*)
 - Colors hls to hex (*hsl(236, 0%, 0%)* -> *#000*)
@@ -56,7 +56,7 @@ These are the methods:
 
 (*string* or *array*): to set the array of parsed css or in text, it will not append, it will replace the actual data
 
-You can use the set() method with an string, this string could came from a webform or from loaded from a file for example 
+You can use the set() method with an string, this string could come from a web form or from loaded from a file 
 ```php
 <?php
 $CSS = new CSSTool\CSS;
