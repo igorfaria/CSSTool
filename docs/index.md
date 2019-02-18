@@ -7,13 +7,13 @@ You can manipulate the CSS with PHP and execute the magic of optimization, outpu
 <br><br>
 
 #### Optimizations
-- *Minify CSS:* Replace multiple spaces, break lines and last semicolons
-- *Optimize values*: Remove zeros when it is not needed (0.3s -> .3s)
-- *RGB to HEX*: Colors rgb to hex (*rgb(255,255,255)* -> *#fff*)
-- *HLS to HEX* Colors hls to hex (*hsl(236, 0%, 0%)* -> *#000*)
-- *Optimize HEX* Abbreviation for hex (*#ffcc00* -> *#fc0*)
-- *Improve Compatibility*: Add prefixes (*-webkit-*, *-moz-*, *-ms-* and *-o-*)
-- *Optimize Syntax*: Shorthand properties
+- **Minify CSS**: Replace multiple spaces, break lines and last semicolons
+- **Optimize Values**: Remove zeros when it is not needed (0.3s -> .3s)
+- **RGB to HEX**: Colors rgb to hex (*rgb(255,255,255)* -> *#fff*)
+- **HLS to HEX**: Colors hls to hex (*hsl(236, 0%, 0%)* -> *#000*)
+- **Optimize HEX**: Abbreviation for hex (*#ffcc00* -> *#fc0*)
+- **Improve Compatibility**: Add prefixes (*-webkit-*, *-moz-*, *-ms-* and *-o-*)
+- **Optimize Syntax**: Shorthand properties
 
 ## Installing
 
@@ -65,7 +65,7 @@ You can use the set() method with string, this string could come from a file or 
 
 ```php
 <?php
-$CSS = new CSSTool\CSS;-
+$CSS = new CSSTool\CSS;
 
 // Set an initial CSS from string
 $CSS->set('body{color:#333}');
@@ -245,7 +245,7 @@ $CSS = new CSSTool\CSS;
 $CSS->set('body{color:#333333;}');
 
 // Add rule to the beginning of the CSS
-$CSSLoL->prepend(array(
+$CSS->prepend(array(
     'p' => array('color'=>'#222222'),
 ));
 
@@ -271,7 +271,9 @@ The default value of the get() parameter is 'array', so the return will be a set
 ```php
 <?php
 $CSS = new CSSTool\CSS;
+
 $CSS->load('tests/example.css');
+
 // Output as an array
 echo $CSS->get();
 ```
