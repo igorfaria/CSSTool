@@ -21,6 +21,7 @@ You have to install this way or this other way.
 ### Usage
 
 You can use the CSS Tool to optimize one or multiple CSS files, outputing as a text or saving into a file.
+
 ```php
 <?php
 // Include the autoloader or the classes files
@@ -59,6 +60,7 @@ Used to set initial CSS.
 Can be used with an array of parsed CSS or the CSS code in a string, it will not append, it will replace the actual data.
 
 You can use the set() method with string, this string could come from a file or whatever. 
+
 ```php
 <?php
 $CSS = new CSSTool\CSS;-
@@ -70,11 +72,13 @@ echo $CSS->get('string');
 ```
 
 Output: 
+
 ```css
 body{color:#333}
 ```
 
 Or if you have an set of rules structured in an associative array, you can use that too:
+
 ```php
 <?php
 $CSS = new CSSTool\CSS;
@@ -112,11 +116,13 @@ echo $CSS->get('string');
 ```
 
 Output: 
+
 ```css
 body{color:#333}
 ```
 
 Loading a CSS file from an URL:
+
 ```php
 <?php
 $CSS = new CSSTool\CSS;
@@ -128,6 +134,7 @@ echo $CSS->get('string');
 ```
 
 Output: 
+
 ```css
 body{color:#333}
 ```
@@ -139,6 +146,7 @@ body{color:#333}
 Used to save a file with the CSS defined in the object.
 
 Saving into a file:
+
 ```php
 <?php
 $CSS = new CSSTool\CSS;
@@ -159,6 +167,7 @@ if($CSS->save('tests/css/example-min.css')){
 Used to get a CSS in a string parsed into a set of rules in an associative array, to be manipulated and appended or prepended to the CSS later.
 
 Example of parsing: 
+
 ```php
 <?php
 $CSS = new CSSTool\CSS;
@@ -173,6 +182,7 @@ var_dump($parsedCSS);
 ```
 
 Output: 
+
 ```
 array(2) {
   [0]=>
@@ -213,7 +223,8 @@ $CSS->append(array(
 echo $CSS->get('string');
 ```
 
-Output: 
+Output:
+
 ```css
 body{color:#333}p{color:#222}
 ```
@@ -240,6 +251,7 @@ echo $CSS->get('string');
 ```
 
 Output: 
+
 ```css
 p{color:#222}body{color:#333}
 ```
@@ -253,6 +265,7 @@ Used to get the CSS in the indicated format.
 The *$minified* attribute has no effect in the array format.
 
 The default value of the get() parameter is 'array', so the return will be a set of associatives arrays:
+
 ```php
 <?php
 $CSS = new CSSTool\CSS;
@@ -262,6 +275,7 @@ echo $CSS->get();
 ```
 
 Output: 
+
 ```
 array(1) {
   [0]=>
@@ -287,6 +301,7 @@ echo $CSS->get('string');
 ```
 
 Output: 
+
 ```css
 body{color:#333}
 ```
@@ -304,6 +319,7 @@ echo $CSS->get('string', false);
 ```
 
 Output: 
+
 ```css
 body{
   color:#333
@@ -317,6 +333,7 @@ You can also use the *$format* as 'json', but I think you kinda get it.
 - **autoprefixer:** (*default: true*) - add prefixes automatically to specified properties that require vendor prefixes
 
 Example: 
+
 ```css
 .example {
     -moz-transform: rotate(30deg);
@@ -329,6 +346,7 @@ Example:
 - **optimize:** (*default: true*) - optimize values and properties of CSS
 
 Example of values not optimized:
+
 ```css
 body {
     margin: 1.050px;
@@ -337,7 +355,9 @@ body {
     color: rgb(255,0,0);
 }
 ```
+
 After optimization:
+
 ```css
 body {
     margin: 1.05px;   // Not needed zero removed
@@ -348,6 +368,7 @@ body {
 ```
 
 If you need for for whatever reason disable the autoprefixer or the otimization, you can: 
+
 ```php
 <?php
 // Constructor receives the configs
@@ -373,7 +394,8 @@ To use the through browser you need to navigate to domain.com/tests/ :D
 
 For using the command line, you need a to have PHP installed and execute the file *show_source.php* passing the paramter *f=tests/filename.php*.
 
-Example
+Example:
+
 ```
 php show_source.php f=tests/filename.php
 ```
