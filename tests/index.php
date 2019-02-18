@@ -1,6 +1,6 @@
 <?php
     $files = glob('*.php',GLOB_NOSORT);
-    $files = array_diff($files,['index.php','autoload_Composer.php','view_Source.php']);
+    $files = array_diff($files,['index.php','autoload_Composer.php','view_source.php']);
 ?><!doctype html>
 <html class="no-js" lang="en">
 <head>
@@ -75,7 +75,7 @@
     <?php foreach($files as $file) {
         echo "
             <li>
-                <a href='view_Source.php?file={$file}' target='tests_viewer' class='view-source'><small>(source)</small></a>
+                <a href='view_source.php?f={$file}' target='tests_viewer' class='view-source'><small>(source)</small></a>
                 <a href='{$file}' target='tests_viewer'>{$file}</a>
             </li>";
     } ?>
