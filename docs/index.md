@@ -360,10 +360,10 @@ After optimization:
 
 ```css
 body {
-    margin: 1.05px;   // Not needed zero removed
-    transition: .3s;  // Not needed zero removed
-    padding: 0;       // Zero is zero :D 
-    color: #f00;      // Color rgb to hex. Hex abbreviation. 
+    margin: 1.05px;   // Not needed zero removed from the end
+    transition: .3s;  // Not needed zero removed from the beggining
+    padding: 0;       // Zero is always zero :D 
+    color: #f00;      // Color rgb to hex and hex abbreviation. 
 }
 ```
 
