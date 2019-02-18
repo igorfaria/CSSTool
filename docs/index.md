@@ -2,7 +2,7 @@
 
 #### Another CSS tool in CSS.
 
-This is a <strong>CSS optimizer</strong> that parse CSS code into an set of associatives arrays, allowing to manipulate the CSS with PHP and execuop the magic of optimization, outputing as a text or into a file.
+This is a <strong>CSS optimizer</strong> that parse CSS code into a set of associatives arrays, allowing to manipulate the CSS with PHP and execute the magic of optimization, outputing as a text or into a file.
 <br><br>
 
 #### Optimize
@@ -23,23 +23,23 @@ You have to install this way or this other way.
 You can use the CSS Tool to optimize one or multiple CSS files.
 ```php
 <?php
-// Include the autoloader file or directly the class files
+// Include the autoloader or the classes files
 require 'vendor/autoload.php';
 
 // Declare the use of CSSTool
 use CSSTool;
 
-// Create an instance
+// Create an instanes of CSS class
 $CSS = new CSS;
 
-// Load a CSS file
+// Lclasthe initial CSS from a file
 $CSS->load('assets/css/css1.css');
 
 // Load another CSS file
 $CSS->load('assets/css/css2.css');
 
-// Saves the final optimized CSS
-if($CSS->save('assets/css/optimized.minified.css')){
+// Saves the final merged and optimized CSS
+if($CSS->save('assets/css/optimized.min7.css')){
   echo 'Saved with sucess!';
 } else {
   echo 'Something went wrong...';
@@ -49,14 +49,14 @@ And of course you can do much more, just check the public methods and you can do
 
 ### Methods
 
-These are the methods:
+These are the public methods:
 
 #### Method set()
 **$CSS->set(*$cssInput*)**
 
 (*string* or *array*): to set the array of parsed css or in text, it will not append, it will replace the actual data
 
-You can use the set() method with an string, this string could come from a web form or from loaded from a file 
+You can use the set() method with string, this string could come from a form or from loaded from a file 
 ```php
 <?php
 $CSS = new CSSTool\CSS;
@@ -119,7 +119,7 @@ $CSS->load('https://localhost/tests/example.css');
 echo $CSS->get('string');
 ```
 
-Will output: 
+Output: 
 ```css
 body{color:#333}
 ```
@@ -135,7 +135,7 @@ string with pathname to the output file
 $CSS = new CSSTool\CSS;
 
 $CSS->set('body{color:#333}');
-// Create a minified file
+// Create a optimized file
 if($CSS->save('tests/css/example-min.css')){
   echo 'File created with success';
 } else {
@@ -147,7 +147,7 @@ if($CSS->save('tests/css/example-min.css')){
 #### Method parse()
 **$CSS->parse(*$cssStringInput*)**
 
-string with CSS to be parsed
+string with CSS to be parsed into a set of rules in an associative array
 
 ```php
 <?php
@@ -161,7 +161,7 @@ $parsedCSS = $CSS->parse($stringCSS);
 var_dump($parsedCSS);
 ```
 
-Will output: 
+Output: 
 ```
 array(2) {
   [0]=>
@@ -223,7 +223,7 @@ $CSSLoL->prepend(array(
 echo $CSS->get('string');
 ```
 
-Will output: 
+Output: 
 ```css
 p{color:#222}body{color:#333}
 ```
@@ -243,7 +243,7 @@ $CSS->load('tests/example.css');
 echo $CSS->get();
 ```
 
-Will output: 
+Output: 
 ```
 array(1) {
   [0]=>
@@ -256,7 +256,7 @@ array(1) {
   }
 ```
 <br>
-If you need the CSS in a string you have to indicate that with the string value 'string' 
+If you need the CSS in a string you have to indicate that with the string value 'string'
 ```php
 <?php
 $CSS = new CSSTool\CSS;
@@ -265,7 +265,7 @@ $CSS->load('tests/example.css');
 echo $CSS->get('string');
 ```
 
-Will output: 
+Output: 
 ```css
 body{color:#333}
 ```
@@ -284,11 +284,11 @@ $CSS = new CSSTool\CSS(['autoprefixer'=>false]);
 
 ### Tools
 
-- **CSS** - Optimizes CSS
+- **CSS** - Manipulate and Optimizes CSS
 - **Filer** - Read, Create and Delete files
 - **Parser** - Parse CSS string into array of parsed CSS
 - **Optimizer** - Optimize properties and values of a parsed CSS
-- **Minifier** - Minify CSS output
+- **Minifier** - Minify the CSS output
 <br><br>
 
 ###### Running the tests
