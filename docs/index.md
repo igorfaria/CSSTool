@@ -2,11 +2,11 @@
 
 #### Another CSS tool in CSS.
 
-This is a <strong>CSS optimizer</strong> that parse CSS code into an set of associatives arrays, allowing to manipulate the CSS with PHP and execute the magic, outputing as a text or into a file.
+This is a <strong>CSS optimizer</strong> that parse CSS code into an set of associatives arrays, allowing to manipulate the CSS with PHP and execuop the magic of optimization, outputing as a text or into a file.
 <br><br>
 
 #### Optimize
-- Minify
+- Minify replacing multiple spaces, break lines and last semicolons
 - Remove zeros when it is not needed (0.3s -> .3s)
 - Colors rgb to hex (*rgb(255,255,255)* -> *#fff*)
 - Colors hls to hex (*hsl(236, 0%, 0%)* -> *#000*)
@@ -23,7 +23,7 @@ You have to install this way or this other way.
 You can use the CSS Tool to optimize one or multiple CSS files.
 ```php
 <?php
-// Includes the autoloader file or directly the class files
+// Include the autoloader file or directly the class files
 require 'vendor/autoload.php';
 
 // Declare the use of CSSTool
@@ -38,7 +38,7 @@ $CSS->load('assets/css/css1.css');
 // Load another CSS file
 $CSS->load('assets/css/css2.css');
 
-// Saves the final
+// Saves the final optimized CSS
 if($CSS->save('assets/css/optimized.minified.css')){
   echo 'Saved with sucess!';
 } else {
@@ -53,6 +53,7 @@ These are the methods:
 
 #### Method set()
 **$CSS->set(*$cssInput*)**
+
 (*string* or *array*): to set the array of parsed css or in text, it will not append, it will replace the actual data
 
 You can use the set() method with an string, this string could came from a webform or from loaded from a file for example 
@@ -90,6 +91,7 @@ body{color:#333}
 
 #### Method load()
 **$CSS->load(*$cssFilepath*)**
+
 string with local path or remote URL to a CSS file
 
 Loading a CSS file from a local path
@@ -125,6 +127,7 @@ body{color:#333}
 
 #### Method save()
 **$CSS->save(*$cssFilepath*)**
+
 string with pathname to the output file
 
 ```php
@@ -143,6 +146,7 @@ if($CSS->save('tests/css/example-min.css')){
 
 #### Method parse()
 **$CSS->parse(*$cssStringInput*)**
+
 string with CSS to be parsed
 
 ```php
@@ -180,6 +184,7 @@ array(2) {
 
 #### Method append()
 **$CSS->append(*$cssInput*)**
+
 string or array to be added to the final of the CSS
 
 ```php
@@ -202,6 +207,7 @@ body{color:#333}p{color:#222}
 
 #### Method prepend()
 **$CSS->prepend(*$cssInput*)**
+
 string or array to be added to the beginning of the of the CSS
 
 ```php
@@ -225,9 +231,10 @@ p{color:#222}body{color:#333}
 
 #### Method get()
 **$CSS->get($format=[*'array','string','json'*],$minified=*true*)**
+
 get the CSS in the indicated format. 
 
-The default value of the get() parameter is 'array', so the return will be an set of associatives arrays
+The default value of the get() parameter is 'array', so the return will be a set of associatives arrays
 ```php
 <?php
 $CSS = new CSSTool\CSS;
