@@ -2,7 +2,8 @@
 
 #### Another CSS tool in CSS.
 
-This is a <strong>CSS optimizer</strong> that parse CSS code into a set of associatives arrays, allowing you to manipulate the CSS with PHP and execute the magic of optimization, outputing the result as a text or save into a file.
+This is a <strong>CSS optimizer</strong> that parse CSS code into a set of associatives arrays. 
+You can manipulate the CSS with PHP and execute the magic of optimization, outputing the result as a text or save into a file.
 <br><br>
 
 #### Optimizations
@@ -47,7 +48,8 @@ if($CSS->save('assets/css/optimized.min.css')){
 }
 ```
 
-And of course you can do much more, just check the public methods and you can do see that there is a lot more to do with CSS Tool if you have a task that involve manipulate CSS with PHP or just minify and optimize CSS.
+And of course you can do much more, just check the public methods and you can do see that there is a lot more to do with CSS Tool. 
+If you have a task that involve manipulate CSS with PHP or just minify and optimize CSS, this is it.
 
 ### Methods
 
@@ -360,10 +362,10 @@ After optimization:
 
 ```css
 body {
-    margin: 1.05px;   // Not needed zero removed from the end
-    transition: .3s;  // Not needed zero removed from the beggining
-    padding: 0;       // Zero is always zero :D 
-    color: #f00;      // Color rgb to hex and hex abbreviation. 
+    margin: 1.05px;   /* Not needed zero removed from the end        */
+    transition: .3s;  /* Not needed zero removed from the beggining  */
+    padding: 0;       /* Zero is always zero :D                      */
+    color: #f00;      /* Color rgb to hex and hex abbreviation.      */
 }
 ```
 
