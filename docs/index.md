@@ -275,6 +275,7 @@ array(1) {
 ```
 <br>
 If you need the CSS in a string you have to indicate the *$format* with the value *'string'*
+
 ```php
 <?php
 $CSS = new CSSTool\CSS;
@@ -291,6 +292,7 @@ body{color:#333}
 ```
 <br>
 If you need the CSS in a string but not minified, you have to indicate the *$minified* atribute as *false*
+
 ```php
 <?php
 $CSS = new CSSTool\CSS;
