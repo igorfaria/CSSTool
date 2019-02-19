@@ -66,11 +66,12 @@ If you have a task that involve manipulate CSS with PHP or just minify and optim
 
 These are the public methods:
 
+
 #### Method set(*$cssInput*)
 ***$cssInput***: string or array
 
-Used to set initial CSS. 
-Can be used with an array of parsed CSS or the CSS code in a string, it will not append, it will replace the actual data.
+It's used to set initial CSS. 
+It can be used with an array of parsed CSS or the CSS code in a string, it will not append, it will replace the actual data.
 
 You can use the set() method with string, this string could come from a file or whatever. 
 
@@ -113,7 +114,7 @@ body{color:#333}
 #### Method load(*$cssFilepath*)
 ***$cssFilepath***: string with local path or remote URL to a CSS file
 
-Used load CSS from a file. 
+It's used load CSS from a file. 
 The subsequently loaded files will be appended to the CSS already in the object. 
 
 Loading a CSS file from a local path:
@@ -156,7 +157,7 @@ body{color:#333}
 #### Method save(*$cssFilepath*)
 ***$cssFilepath***: string with pathname to the output file
 
-Used to save a file with the CSS defined in the object.
+It's used to save a file with the CSS defined in the object.
 
 Saving into a file:
 
@@ -219,7 +220,7 @@ array(2) {
 #### Method append(*$cssInput*)
 ***$cssInput***: string or array
 
-Used to add CSS rules at the end of the CSS:
+It's used to add CSS rules at the end of the CSS:
 
 ```php
 <?php
@@ -246,7 +247,7 @@ body{color:#333}p{color:#222}
 #### Method prepend(*$cssInput*)
 ***$cssInput***: string or array
 
-Used to add CSS rules at the beginning of the CSS:
+It's used to add CSS rules at the beginning of the CSS:
 
 ```php
 <?php
@@ -274,7 +275,7 @@ p{color:#222}body{color:#333}
 ***$format***:  'array', 'string' or 'json'
 ***$minified***: true or false
 
-Used to get the CSS in the indicated format.
+It's used to get the CSS in the indicated format.
 The *$minified* attribute has no effect in the array format.
 
 The default value of the get() parameter is 'array', so the return will be a set of associatives arrays:
@@ -341,7 +342,7 @@ body{
 }
 ```
 
-You can also use the *$format* as 'json', but I think you kinda get it.
+You can also use it with the *$format* as 'json', but I think you kinda get it.
 <br><br>
 
 #### Configurations
@@ -407,7 +408,7 @@ You can run them through a web browser or using the command line.
 
 To use the through browser you need to navigate to domain.com/tests/ :D
 
-For using the command line, you need a to have PHP installed and execute the file *show_source.php* passing the paramter *f=tests/filename.php*.
+For using the command line, you need a to have PHP installed and execute the file *show_source.php* passing the parameter *f=tests/filename.php*.
 
 Example:
 
@@ -415,4 +416,4 @@ Example:
 php show_source.php f=tests/filename.php
 ```
 
-:D
+Hi, my name is Igor Faria :D
