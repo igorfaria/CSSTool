@@ -45,6 +45,7 @@ section strong {
   font-size: 1.05em;
 }
 
+
 footer {
  position: relative;
  margin: 0;
@@ -59,7 +60,7 @@ footer {
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-
+  box-sigin: border-box;
 }
 
 footer a {
