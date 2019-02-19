@@ -14,6 +14,7 @@
 #### Another CSS tool in CSS.
 
 This is a <strong>CSS optimizer</strong> that parse CSS code into a set of associatives arrays. 
+
 You can manipulate the CSS with PHP and execute the magic of optimization, outputing the result as a text or save into a file.
 <br><br>
 
