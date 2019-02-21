@@ -13,5 +13,8 @@
         "psr-4": {
             "CSSTool\\": "src/CSSTool"
         }
+    },
+    "require": {
+        "csstool/css": "dev-master"
     }
 }
