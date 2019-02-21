@@ -10,7 +10,7 @@
 }
 
 body {
-  background: var(--primary_color_lol);
+  background: #000;
   font: 18px/22px Nunito, 'Quattrocento Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #929292;
   padding-bottom: 0;
@@ -45,8 +45,9 @@ section strong {
   font-size: 1.05em;
 }
 
+
 footer {
- position: static;
+ position: relative;
  margin: 0;
  text-align: center;
  width: 100%;
@@ -54,6 +55,12 @@ footer {
  background: #2a0235;
  padding-top: 30px;
  padding-bottom: 20px;
+ top: auto;
+ bottom: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  box-sigin: border-box;
 }
 
 footer a {
