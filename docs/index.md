@@ -16,7 +16,13 @@ This is a <strong>CSS optimizer</strong> that parse CSS code into a set of assoc
 
 ## Installing
 
-You have to install this way or this other way. 
+You can install via Composer using:
+
+```
+composer require csstool/css:dev-master
+```
+
+Or you can download the files directly from github.com and include the files that are in the /src/ folder by your own means.
 
 ### Usage
 
