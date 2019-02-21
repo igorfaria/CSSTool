@@ -1,6 +1,7 @@
 {
     "name": "csstool/css",
     "description": "CSSTools :D",
+    "keywords": ["css", "minify", "optimize", "parse"],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -12,10 +13,11 @@
     "require": {
         "php": ">=5.3.0"
     },
-    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "CSSTool\\": "src/CSSTool"
+            "CSSTool\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true 
 }
