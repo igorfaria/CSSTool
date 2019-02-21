@@ -9,12 +9,13 @@
             "email": "itfaria@gmail.com"
         }
     ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "CSSTool\\": "src/CSSTool"
         }
-    },
-    "require": {
-        "csstool/css": "dev-master"
     }
 }
