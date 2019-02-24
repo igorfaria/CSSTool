@@ -21,7 +21,23 @@ class Parser
         // Remove empty selectors
         $cssText = preg_replace('/(?<=(\}|;))[^\{\};]+\{\s*\}/', '', $cssText);
     
-        $reMedia = "/(@\w+[^{]+)\{([\s\S]+?})\s*}/";
+        // @imports
+        $reImports = "/(\@import\s+[^;]+;?)/";
+        preg_match_all($reImports, $cssText, $matchesImports);
+
+        // If the is @imports
+        if(isset($matchesImports[1]) and count($matchesImports[1])>0){
+            foreach($matchesImports[1] as $import){
+                // Clean it
+                $aux_import = preg_replace('/\@import\s+/i','', $import); 
+                $aux_import = preg_replace('/url\(/i','', $aux_import); 
+                $aux_import = str_replace(array('"',"'",")",'http:','https:'),'', $aux_import);
+                // Replace it from CSS text
+                $cssText = str_replace($import, "@import {url:{$aux_import}}", $cssText);
+            }
+        }
+
+        $reMedia = "/(@(?!import)\w+[^{]+)\{([\s\S]+?})\s*}/";
         preg_match_all($reMedia, $cssText, $matchesMedia);
 
         // An instance with new self(), because the method is now static :D
@@ -52,6 +68,7 @@ class Parser
                    
                     // Add property to the rules
                     $rules_a[$property] = $value;
+
                 }
             }
             // Media queries
@@ -103,11 +120,24 @@ class Parser
         $css_text = "";
         $ident_space = "    ";
         $break_line = PHP_EOL;
-		
+        
+        // Placeholder to @imports
+        $imports = [];
+        
         // Iterates over the array with rules like a crazy
         foreach($cssInputArray as $rule){
             foreach($rule as $selector1=>$properties1){
               if(!is_array($properties1)) continue;
+
+              // If its an @import
+              if(strpos($selector1,'@import') !== FALSE){
+                 if(isset($properties1['url']) and !empty($properties1['url'])){
+                     $imports[] = $properties1['url'];
+                 }
+                 // Continue because all @import will be prepended at end
+                 continue;
+              }
+
               $css_text .= $selector1 . ' {' . $break_line;
 			
 							
@@ -162,6 +192,15 @@ class Parser
 			if(strpos($selector1, '@-web') !== FALSE){  
 				$css_text .= $ident_space . '}' . $break_line . $break_line;
 			 }
+        }
+
+
+        // If there are @imports
+        if(count($imports)){
+            foreach($imports as $import){
+                // Prepend each @import 
+                $css_text = "@import '{$import}';" . $break_line . $css_text;
+            }
         }
         
         return $css_text;
