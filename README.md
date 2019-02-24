@@ -30,7 +30,7 @@ This is a <strong>CSS optimizer</strong> that parse CSS code into a set of assoc
 You can install via Composer using:
 
 ```
-composer require csstool/css:dev-master
+composer require csstool/css --prefer-dist
 ```
 
 Or you can download the files directly from github.com and include the files that are in the /src/ folder by your own means.
@@ -414,12 +414,12 @@ You can run them through a web browser or using the command line.
 
 To use the through browser you need to navigate to domain.com/tests/ :D
 
-For using the command line, you need a to have PHP installed and execute the file *show_source.php* passing the parameter *f=tests/filename.php*.
+For using the command line, you need a to have PHP installed and execute the file *show_source.php* passing the parameter *f=filename.php*.
 
 Example:
 
 ```
-php show_source.php f=tests/filename.php
+php show_source.php f=filename.php
 ```
 
 
