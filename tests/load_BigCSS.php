@@ -12,4 +12,4 @@ $CSS = new CSSTool\CSS;
 echo 'Load local file "./css/big.css"' . PHP_EOL . PHP_EOL;
 $CSS->load('css/big.css');
 // Output
-var_dump($CSS->get('string', false));
+echo($CSS->get('string', false));

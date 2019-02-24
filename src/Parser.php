@@ -196,8 +196,11 @@ class Parser
 
 
         // If there are @imports
-        if(count($imports)){
-            foreach($imports as $import){
+        $total_imports = count($imports);
+        if($total_imports > 0){
+            $css_text = $break_line . $css_text;
+            for($i=0;$i<count($imports);$i++){
+                $import = $imports[$i];
                 // Prepend each @import 
                 $css_text = "@import '{$import}';" . $break_line . $css_text;
             }
